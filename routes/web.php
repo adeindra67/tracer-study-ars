@@ -4,6 +4,7 @@ use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\Auth\AlumniAuthController;
+use App\Http\Controllers\Alumni\DashboardController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -26,9 +27,9 @@ Route::post('/logout-alumni', [AlumniAuthController::class, 'logout'])->name('al
 
 // Route yang hanya bisa diakses kalau Alumni sudah berhasil Login
 Route::middleware('auth:alumni')->prefix('alumni')->group(function () {
-    Route::get('/dashboard', function () {
-        return "Selamat datang, " . Auth::guard('alumni')->user()->nama;
-    })->name('alumni.dashboard');
+    Route::get('/dashboard', [DashboardController::class, 'index'])->name('alumni.dashboard');
+    // Tambahkan baris ini untuk memproses form:
+    Route::post('/dashboard', [DashboardController::class, 'store'])->name('alumni.dashboard.store');
 });
 
 require __DIR__.'/auth.php';

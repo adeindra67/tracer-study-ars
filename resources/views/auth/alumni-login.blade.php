@@ -34,7 +34,7 @@
                     <p class="text-sm text-blue-50 leading-relaxed">
                         Jika Anda lupa NIM atau mengalami kendala akses, silakan hubungi Admin Kampus melalui WhatsApp:
                     </p>
-                    <a href="https://wa.me/628123456789" target="_blank" class="mt-4 inline-flex items-center gap-2 bg-ars-yellow text-ars-navy px-4 py-2 rounded-lg font-bold text-sm hover:bg-white transition-colors duration-300">
+                    <a href="https://api.whatsapp.com/send/?phone=6281222300425&text=Hallo%20PMB%20Center...&type=phone_number&app_absent=0" target="_blank" class="mt-4 inline-flex items-center gap-2 bg-ars-yellow text-ars-navy px-4 py-2 rounded-lg font-bold text-sm hover:bg-white transition-colors duration-300">
                         <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.588-5.946 0-6.556 5.332-11.891 11.893-11.891 3.181 0 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.481 8.403 0 6.556-5.332 11.891-11.893 11.891-2.01 0-3.98-.511-5.725-1.481l-6.268 1.702zm5.086-5.146l.303.182c1.508.897 3.248 1.371 5.035 1.371 5.462 0 9.907-4.448 9.907-9.907 0-2.64-1.03-5.123-2.9-6.99s-4.352-2.9-6.993-2.9c-5.462 0-9.91 4.448-9.91 9.907 0 2.126.559 4.196 1.617 5.974l.197.333-1.06 3.873 3.967-1.077z"/></svg>
                         Chat Admin Kampus
                     </a>
@@ -113,9 +113,6 @@
                     <button type="submit"
                         class="w-full bg-ars-navy text-white py-4 rounded-xl font-black tracking-widest hover:bg-blue-900 transform transition hover:-translate-y-1 shadow-xl hover:shadow-ars-navy/20 flex items-center justify-center gap-3 group">
                         MASUK KE DASHBOARD
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 group-hover:translate-x-2 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z" />
-                        </svg>
                     </button>
                 </form>
 
