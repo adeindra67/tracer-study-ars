@@ -11,13 +11,13 @@
                     </div>
                     <div>
                         <h1 class="text-2xl font-black tracking-tighter text-ars-yellow">ARS UNIVERSITY</h1>
-                        <p class="text-xs uppercase tracking-widest opacity-80">Tracer Study System</p>
+                        <p class="text-xs uppercase tracking-widest opacity-80">Tracer Study</p>
                     </div>
                 </div>
 
                 <h2 class="text-4xl font-extrabold mb-6 leading-tight">
                     Selamat Datang di <br> 
-                    <span class="text-ars-yellow text-5xl">Tracer Study</span>
+                    <span class="text-ars-yellow text-5xl">Tracer Studi</span>
                 </h2>
                 
                 <p class="text-blue-100 text-lg mb-8 leading-relaxed">

@@ -19,7 +19,12 @@ return new class extends Migration
             $table->string('prodi')->nullable();
             $table->year('lulus_tahun')->nullable();
             $table->string('no_hp')->nullable();
+            $table->string('nik')->nullable(); 
+            $table->string('npwp')->nullable();
             $table->string('email')->nullable();
+            $table->string('pekerjaan')->nullable();
+            $table->string('perusahaan')->nullable();
+            $table->string('jabatan')->nullable();
             $table->timestamps();
         });
     }

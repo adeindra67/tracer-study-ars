@@ -3,115 +3,333 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Dashboard Tracer Study - ARS University</title>
+    <title>Tracer Study - ARS University</title>
     @vite(['resources/css/app.css', 'resources/js/app.js'])
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <style>
+        .step-content { display: none; animation: fadeIn 0.5s; }
+        .step-content.active { display: block; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+    </style>
 </head>
-<body class="bg-gray-50 font-sans antialiased">
+<body class="bg-gray-50 font-sans antialiased text-gray-800">
 
-    <nav class="bg-ars-navy text-white shadow-lg">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <nav class="bg-ars-navy text-white shadow-lg sticky top-0 z-50">
+        <div class="max-w-5xl mx-auto px-4 sm:px-6">
             <div class="flex justify-between h-16 items-center">
                 <div class="flex items-center gap-3">
-                    <div class="bg-white text-ars-navy font-bold p-1.5 rounded flex items-center justify-center h-8 w-8">
-                        ARS
+                    <div class="bg-white p-1 rounded flex items-center justify-center h-8 w-8 sm:h-10 sm:w-10 overflow-hidden">
+                        <img src="{{ asset('images/logo-ars-university.webp') }}" alt="Logo ARS" class="w-full h-full object-contain">
                     </div>
-                    <span class="font-bold tracking-widest uppercase text-ars-yellow">Tracer Study</span>
+                    <span class="font-bold tracking-widest uppercase text-ars-yellow text-sm sm:text-base">Tracer Study</span>
                 </div>
-                
-                <form method="POST" action="{{ route('alumni.logout') }}">
-                    @csrf
-                    <button type="submit" class="text-sm font-medium text-blue-200 hover:text-white transition-colors flex items-center gap-2">
-                        <span>Keluar</span>
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" />
-                        </svg>
-                    </button>
-                </form>
+                <div class="flex items-center gap-4">
+                    <span class="text-sm text-gray-300 hidden sm:block">NIM: {{ $alumni->nim }}</span>
+                    <form method="POST" action="{{ route('alumni.logout') }}">
+                        @csrf
+                        <button type="submit" class="text-sm font-medium text-red-300 hover:text-red-100 flex items-center gap-1">
+                            Keluar
+                        </button>
+                    </form>
+                </div>
             </div>
         </div>
     </nav>
 
-    <main class="max-w-4xl mx-auto py-10 px-4 sm:px-6 lg:px-8">
-        <div class="bg-white rounded-2xl shadow-sm border border-gray-100 p-8 mb-8 relative overflow-hidden">
-            <div class="absolute top-0 right-0 w-32 h-32 bg-ars-yellow opacity-10 rounded-bl-full"></div>
-            <h1 class="text-3xl font-extrabold text-ars-navy mb-2">Halo, {{ $alumni->nama }}!</h1>
-            <p class="text-ars-gray text-sm md:text-base">
-                NIM: <span class="font-bold">{{ $alumni->nim }}</span> | Program Studi: {{ $alumni->prodi }} (Lulusan {{ $alumni->lulus_tahun }})
-            </p>
-            <p class="mt-4 text-gray-600 leading-relaxed">
-                Terima kasih telah berpartisipasi dalam Tracer Study ARS University. Mohon isi kuesioner di bawah ini dengan data yang sebenar-benarnya untuk membantu peningkatan kualitas kampus kita.
-            </p>
+    <main class="max-w-4xl mx-auto py-8 px-4 sm:px-6">
+        
+        <div class="text-center mb-10 pt-6">
+            <h1 class="text-3xl sm:text-4xl font-black text-ars-navy">Halo, {{ $alumni->nama }}!</h1>
+            <p class="text-gray-500 text-base mt-2">Lulusan {{ $alumni->lulus_tahun }} | {{ $alumni->prodi }}</p>
         </div>
 
-        <div class="bg-white rounded-2xl shadow-xl border-t-4 border-ars-navy p-8 sm:p-10">
-            <h2 class="text-xl font-bold text-ars-navy mb-6 border-b pb-4">Formulir Kuesioner Wajib</h2>
+        <div class="bg-white rounded-3xl shadow-xl border border-gray-100 overflow-hidden">
+            
+            <div class="bg-gray-100 h-2.5 w-full">
+                <div id="progressBar" class="bg-ars-yellow h-2.5 transition-all duration-500 w-0"></div>
+            </div>
+            
+            <div class="p-6 sm:p-8 border-b bg-ars-navy/5 text-center">
+                <h2 id="stepTitle" class="text-xl font-bold text-ars-navy uppercase tracking-wider">Tahap 1: Verifikasi Data Diri</h2>
+                <p id="stepCounter" class="text-sm text-gray-500 font-bold mt-1">Bagian 1 dari {{ count($kuesioner) + 1 }}</p>
+            </div>
 
-            @if (session('success'))
-    <div class="mb-6 bg-green-50 border-l-4 border-green-500 p-4 rounded-md">
-        <p class="text-sm text-green-700 font-bold">{{ session('success') }}</p>
-    </div>
-@endif
+            <form action="{{ route('alumni.dashboard.store') }}" method="POST" id="kuesionerForm" class="p-6 sm:p-10">
+                @csrf
 
-<form action="{{ route('alumni.dashboard.store') }}" method="POST" class="space-y-8">                
-    @csrf
-                
-                @foreach ($kuesioner as $index => $tanya)
-                    <div class="bg-gray-50/50 p-6 rounded-xl border border-gray-100 transition duration-300 hover:shadow-md hover:border-ars-navy/20 group">
-                        <div class="flex gap-3 mb-4">
-                            <div class="flex-shrink-0 w-8 h-8 bg-ars-navy text-ars-yellow font-bold flex items-center justify-center rounded-full text-sm">
-                                {{ $index + 1 }}
+                <!-- ================== STEP 0: UPDATE DATA DIRI ================== -->
+                <div class="step-content active" data-step="0" data-title="Verifikasi & Update Data Diri">
+                    <div class="bg-blue-50 border-l-4 border-blue-500 p-5 rounded-lg mb-8 text-base text-blue-800 leading-relaxed">
+                        Pastikan data kontak, NIK, dan pekerjaan terbaru Anda di bawah ini sudah benar.
+                    </div>
+                    
+                    <div class="space-y-8">
+                        <!-- Baris 1: Email & HP -->
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                            <div>
+                                <label class="block text-base font-bold text-gray-700 mb-2">Email Aktif <span class="text-red-500">*</span></label>
+                                <input type="email" name="email" value="{{ $alumni->email ?? '' }}" class="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-ars-navy outline-none" required>
                             </div>
                             <div>
-                                <label class="text-base font-bold text-gray-900 leading-snug block">
-                                    {{ $tanya->pertanyaan }}
-                                </label>
-                                <span class="text-xs text-gray-400 font-mono mt-1 block">Kode: {{ $tanya->kode_dikti }}</span>
+                                <label class="block text-base font-bold text-gray-700 mb-2">Nomor HP / WhatsApp <span class="text-red-500">*</span></label>
+                                <input type="text" name="no_hp" value="{{ $alumni->no_hp ?? '' }}" class="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-ars-navy outline-none" required>
                             </div>
                         </div>
 
-                        <div class="ml-11">
-                            @if ($tanya->tipe_jawaban == 'radio')
-                                @php
-                                    // Mengubah JSON dari database menjadi Array PHP
-                                    $opsi = json_decode($tanya->opsi_jawaban, true);
-                                @endphp
-                                
-                                <div class="space-y-3">
-                                    @foreach ($opsi as $kunci => $nilai)
-                                        <label class="flex items-start gap-3 cursor-pointer group/item">
-                                            <div class="flex items-center h-5">
-                                                <input type="radio" name="jawaban[{{ $tanya->kuesioner_alumni_no }}]" value="{{ $kunci }}" required
-                                                    class="w-4 h-4 text-ars-navy border-gray-300 focus:ring-ars-navy">
-                                            </div>
-                                            <span class="text-sm text-gray-700 group-hover/item:text-ars-navy transition-colors">{{ $nilai }}</span>
-                                        </label>
-                                    @endforeach
-                                </div>
+                        <!-- Baris 2: NIK & NPWP -->
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                            <div>
+                                <label class="block text-base font-bold text-gray-700 mb-2">NIK (Sesuai KTP) <span class="text-red-500">*</span></label>
+                                <input type="text" name="nik" value="{{ $alumni->nik ?? '' }}" class="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-ars-navy outline-none" required>
+                            </div>
+                            <div>
+                                <label class="block text-base font-bold text-gray-700 mb-2">NPWP (Opsional)</label>
+                                <input type="text" name="npwp" value="{{ $alumni->npwp ?? '' }}" placeholder="Isi jika ada" class="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-ars-navy outline-none">
+                            </div>
+                        </div>
 
-                            @elseif ($tanya->tipe_jawaban == 'number')
-                                <input type="number" name="jawaban[{{ $tanya->kuesioner_alumni_no }}]" required
-                                    class="w-full sm:w-1/2 px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-ars-navy focus:border-ars-navy outline-none transition-all"
-                                    placeholder="Ketik angka di sini...">
-                            @endif
+                        <div class="border-t border-gray-100 pt-6">
+                            <h3 class="text-lg font-bold text-ars-navy mb-4">Informasi Pekerjaan Saat Ini</h3>
+                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                                <div>
+                                    <label class="block text-base font-bold text-gray-700 mb-2">Status / Pekerjaan</label>
+                                    <input type="text" name="pekerjaan" value="{{ $alumni->pekerjaan ?? '' }}" placeholder="Contoh: Staff IT..." class="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-ars-navy outline-none">
+                                </div>
+                                <div>
+                                    <label class="block text-base font-bold text-gray-700 mb-2">Nama Perusahaan / Instansi</label>
+                                    <input type="text" name="perusahaan" value="{{ $alumni->perusahaan ?? '' }}" placeholder="Contoh: PT. Maju Jaya..." class="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-ars-navy outline-none">
+                                </div>
+                                <div class="sm:col-span-2">
+                                    <label class="block text-base font-bold text-gray-700 mb-2">Jabatan / Posisi</label>
+                                    <input type="text" name="jabatan" value="{{ $alumni->jabatan ?? '' }}" placeholder="Contoh: Senior Web Developer" class="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-ars-navy outline-none">
+                                </div>
+                            </div>
                         </div>
                     </div>
+                </div>
+
+                <!-- ================== STEP 1 - 9: KUESIONER ================== -->
+                @php $step_index = 1; @endphp
+                @foreach ($kuesioner as $nama_kategori => $daftar_pertanyaan)
+                    <div class="step-content" data-step="{{ $step_index }}" data-title="{{ $nama_kategori }}">
+                        <div class="space-y-8 sm:space-y-10">
+                            @foreach ($daftar_pertanyaan as $tanya)
+                                <div class="bg-gray-50/50 p-6 sm:p-8 rounded-2xl border border-gray-200 shadow-sm">
+                                    <div class="mb-4">
+                                        <label class="text-lg font-bold text-gray-900 leading-snug block">
+                                            {{ $tanya->pertanyaan }}
+                                            @if($tanya->is_wajib) <span class="text-red-500">*</span> @endif
+                                        </label>
+                                        @if(!$tanya->is_wajib) <span class="text-sm text-gray-400 block mt-1">(Boleh dikosongkan)</span> @endif
+                                    </div>
+
+                                    <div class="mt-4">
+                                        
+                                        {{-- 1. PENGGABUNGAN: DATE, NUMBER, TEXT BIASA --}}
+                                        @if (in_array($tanya->tipe_jawaban, ['number', 'text', 'date']))
+                                            <input type="{{ $tanya->tipe_jawaban }}" name="jawaban[{{ $tanya->kuesioner_alumni_no }}]" 
+                                                class="w-full sm:w-2/3 px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-ars-navy outline-none text-base shadow-sm"
+                                                {{ $tanya->is_wajib ? 'required' : '' }}>
+                                        
+                                        {{-- 2. RADIO BUTTON --}}
+                                        @elseif ($tanya->tipe_jawaban == 'radio')
+                                            @php $opsi = json_decode($tanya->opsi_jawaban, true); @endphp
+                                            @if ($nama_kategori == 'Metode Pembelajaran')
+                                                @php
+                                                    // Pastikan opsi diurutkan dari yang terkecil ke terbesar (kiri ke kanan)
+                                                    if(isset($opsi[0]) && $opsi[0] == 'Sangat Besar') {
+                                                        $opsi = array_reverse($opsi);
+                                                    }
+                                                @endphp
+                                                <div class="flex items-center w-full mt-4">
+                                                    <div class="flex flex-1 justify-between bg-white px-2 sm:px-4 py-3 rounded-xl border border-gray-200 shadow-sm overflow-x-auto">
+                                                        @foreach ($opsi as $val)
+                                                            <label class="flex flex-col items-center justify-start cursor-pointer group p-1 sm:p-2 flex-1 min-w-[70px]">
+                                                                <input type="radio" name="jawaban[{{ $tanya->kuesioner_alumni_no }}]" value="{{ $val }}" class="w-5 h-5 text-ars-navy border-gray-300 focus:ring-ars-navy" {{ $tanya->is_wajib ? 'required' : '' }}>
+                                                                <span class="text-[10px] sm:text-xs text-center text-gray-600 mt-2 font-medium group-hover:text-ars-navy transition leading-snug">{{ $val }}</span>
+                                                            </label>
+                                                        @endforeach
+                                                    </div>
+                                                </div>
+                                            @else
+                                                <div class="space-y-1 mt-3">
+                                                    @foreach ($opsi as $val)
+                                                        <label class="flex items-center gap-3 cursor-pointer p-3 -ml-3 rounded-xl hover:bg-blue-50 transition">
+                                                            <input type="radio" name="jawaban[{{ $tanya->kuesioner_alumni_no }}]" value="{{ $val }}" class="w-5 h-5 text-ars-navy border-gray-300 focus:ring-ars-navy" {{ $tanya->is_wajib ? 'required' : '' }}>
+                                                            <span class="text-base text-gray-800">{{ $val }}</span>
+                                                        </label>
+                                                    @endforeach
+                                                </div>
+                                            @endif
+
+                                        {{-- 3. RADIO BUTTON LAINNYA --}}
+                                        @elseif ($tanya->tipe_jawaban == 'radio_lainnya')
+                                            @php $opsi = json_decode($tanya->opsi_jawaban, true); @endphp
+                                            <div class="space-y-1 mt-3">
+                                                @foreach ($opsi as $val)
+                                                    <label class="flex items-center gap-3 cursor-pointer p-3 -ml-3 rounded-xl hover:bg-blue-50 transition">
+                                                        <input type="radio" name="jawaban[{{ $tanya->kuesioner_alumni_no }}]" value="{{ $val }}" class="w-5 h-5 text-ars-navy border-gray-300 focus:ring-ars-navy" onchange="toggleLainnya(this, {{ $tanya->kuesioner_alumni_no }})" {{ $tanya->is_wajib ? 'required' : '' }}>
+                                                        <span class="text-base text-gray-800">{{ $val }}</span>
+                                                    </label>
+                                                @endforeach
+                                                <label class="flex items-center gap-3 cursor-pointer p-3 -ml-3 rounded-xl hover:bg-blue-50 transition">
+                                                    <input type="radio" name="jawaban[{{ $tanya->kuesioner_alumni_no }}]" value="Lainnya" class="w-5 h-5 text-ars-navy border-gray-300 focus:ring-ars-navy" onchange="toggleLainnya(this, {{ $tanya->kuesioner_alumni_no }})" {{ $tanya->is_wajib ? 'required' : '' }}>
+                                                    <span class="text-base text-gray-800">Lainnya:</span>
+                                                </label>
+                                                <input type="text" name="jawaban_lainnya[{{ $tanya->kuesioner_alumni_no }}]" id="lainnya_{{ $tanya->kuesioner_alumni_no }}" class="mt-1 w-full sm:w-2/3 px-4 py-3 border border-gray-300 focus:ring-2 focus:ring-ars-navy outline-none rounded-xl text-base hidden shadow-sm" placeholder="Tuliskan spesifiknya di sini...">
+                                            </div>
+
+                                        {{-- 4. CHECKBOX --}}
+                                        @elseif ($tanya->tipe_jawaban == 'checkbox' || $tanya->tipe_jawaban == 'checkbox_lainnya')
+                                            @php $opsi = json_decode($tanya->opsi_jawaban, true); @endphp
+                                            <div class="space-y-1 mt-3">
+                                                @foreach ($opsi as $val)
+                                                    <label class="flex items-start gap-3 cursor-pointer p-3 -ml-3 rounded-xl hover:bg-blue-50 transition">
+                                                        <input type="checkbox" name="jawaban[{{ $tanya->kuesioner_alumni_no }}][]" value="{{ $val }}" class="w-5 h-5 mt-0.5 text-ars-navy border-gray-300 rounded focus:ring-ars-navy">
+                                                        <span class="text-base text-gray-800 leading-snug">{{ $val }}</span>
+                                                    </label>
+                                                @endforeach
+                                                @if($tanya->tipe_jawaban == 'checkbox_lainnya')
+                                                    <label class="flex items-center gap-3 cursor-pointer p-3 -ml-3 rounded-xl hover:bg-blue-50 transition">
+                                                        <input type="checkbox" name="jawaban[{{ $tanya->kuesioner_alumni_no }}][]" value="Lainnya" class="w-5 h-5 text-ars-navy border-gray-300 rounded focus:ring-ars-navy" onchange="toggleLainnya(this, {{ $tanya->kuesioner_alumni_no }})">
+                                                        <span class="text-base text-gray-800">Lainnya:</span>
+                                                    </label>
+                                                    <input type="text" name="jawaban_lainnya[{{ $tanya->kuesioner_alumni_no }}]" id="lainnya_{{ $tanya->kuesioner_alumni_no }}" class="mt-1 w-full sm:w-2/3 px-4 py-3 border border-gray-300 focus:ring-2 focus:ring-ars-navy outline-none rounded-xl text-base hidden shadow-sm" placeholder="Tuliskan spesifiknya di sini...">
+                                                @endif
+                                            </div>
+
+                                        {{-- 5. SCALE --}}
+                                        @elseif ($tanya->tipe_jawaban == 'scale')
+                                            <div class="flex items-center gap-2 sm:gap-6 w-full mt-4">
+                                                <span class="text-[10px] sm:text-sm font-bold text-gray-500 text-right w-16 sm:w-24 leading-tight uppercase">Sangat Rendah</span>
+                                                <div class="flex flex-1 justify-between bg-white px-4 py-3 rounded-xl border border-gray-200 shadow-sm overflow-x-auto">
+                                                    @for ($i = 1; $i <= 5; $i++)
+                                                        <label class="flex flex-col items-center justify-start cursor-pointer group p-1 sm:p-2 flex-1 min-w-[30px]">
+                                                            <input type="radio" name="jawaban[{{ $tanya->kuesioner_alumni_no }}]" value="{{ $i }}" class="w-5 h-5 text-ars-navy border-gray-300 focus:ring-ars-navy" {{ $tanya->is_wajib ? 'required' : '' }}>
+                                                            <span class="text-sm sm:text-base text-gray-800 mt-2 font-medium group-hover:text-ars-navy transition">{{ $i }}</span>
+                                                        </label>
+                                                    @endfor
+                                                </div>
+                                                <span class="text-[10px] sm:text-sm font-bold text-gray-500 text-left w-16 sm:w-24 leading-tight uppercase">Sangat Tinggi</span>
+                                            </div>
+                                        @endif
+                                    </div>
+                                </div>
+                            @endforeach
+                        </div>
+                    </div>
+                    @php $step_index++; @endphp
                 @endforeach
 
-                <div class="pt-6 border-t border-gray-100 flex justify-end">
-                    <button type="submit" class="bg-ars-navy hover:bg-blue-900 text-white font-bold py-3 px-8 rounded-xl shadow-lg transform transition hover:-translate-y-1 flex items-center gap-2">
-                        Simpan & Kirim Jawaban
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
-                            <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
-                        </svg>
+                <div class="mt-12 pt-8 border-t border-gray-200 flex justify-between items-center">
+                    <button type="button" id="btnPrev" class="hidden px-6 py-3.5 bg-gray-200 text-gray-700 font-bold rounded-xl hover:bg-gray-300 transition-colors">
+                        &larr; Kembali
                     </button>
+                    
+                    <button type="button" id="btnNext" class="px-8 py-3.5 bg-ars-navy text-white font-bold rounded-xl shadow-md hover:bg-blue-900 transition-colors ml-auto text-lg">
+                        Selanjutnya &rarr;
+                    </button>
+                    
+                    <div id="submitWrapper" class="hidden ml-auto">
+                        <button type="button" id="btnSubmitFake" class="flex px-8 py-3.5 bg-green-500 text-white font-bold rounded-xl shadow-md hover:bg-green-600 transition-colors items-center gap-2 text-lg">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" viewBox="0 0 20 20" fill="currentColor">
+                                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
+                            </svg>
+                            Submit
+                        </button>
+                    </div>
                 </div>
             </form>
         </div>
         
-        <p class="text-center text-sm text-gray-400 mt-8 mb-4">
-            &copy; {{ date('Y') }} ARS University. All rights reserved.
-        </p>
+        <p class="text-center text-sm text-gray-400 mt-10 mb-6">&copy; {{ date('Y') }} ARS University. All Rights Reserved.</p>
     </main>
 
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const steps = document.querySelectorAll('.step-content');
+            const btnPrev = document.getElementById('btnPrev');
+            const btnNext = document.getElementById('btnNext');
+            const submitWrapper = document.getElementById('submitWrapper');
+            const titleEl = document.getElementById('stepTitle');
+            const counterEl = document.getElementById('stepCounter');
+            const progressEl = document.getElementById('progressBar');
+            const form = document.getElementById('kuesionerForm');
+            const btnSubmitFake = document.getElementById('btnSubmitFake');
+            
+            let currentStep = 0;
+            const totalSteps = steps.length;
+
+            const radioButtons = document.querySelectorAll('input[type="radio"]');
+            radioButtons.forEach(radio => {
+                radio.addEventListener('mousedown', function() { this.dataset.wasChecked = this.checked; });
+                radio.addEventListener('click', function() {
+                    if (this.dataset.wasChecked === 'true') {
+                        this.checked = false;
+                        this.dataset.wasChecked = 'false';
+                        this.dispatchEvent(new Event('change'));
+                    }
+                });
+            });
+
+            function updateUI() {
+                steps.forEach((step, index) => {
+                    step.classList.remove('active');
+                    if (index === currentStep) step.classList.add('active');
+                });
+                titleEl.innerText = steps[currentStep].getAttribute('data-title');
+                counterEl.innerText = `Bagian ${currentStep + 1} dari ${totalSteps}`;
+                progressEl.style.width = ((currentStep + 1) / totalSteps * 100) + '%';
+                currentStep === 0 ? btnPrev.classList.add('hidden') : btnPrev.classList.remove('hidden');
+                if (currentStep === totalSteps - 1) {
+                    btnNext.classList.add('hidden');
+                    submitWrapper.classList.remove('hidden');
+                } else {
+                    btnNext.classList.remove('hidden');
+                    submitWrapper.classList.add('hidden');
+                }
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            }
+
+            function validateCurrentStep() {
+                const currentInputs = steps[currentStep].querySelectorAll('input[required], select[required]');
+                for (let input of currentInputs) {
+                    if (!input.checkValidity()) {
+                        input.reportValidity();
+                        return false;
+                    }
+                }
+                return true;
+            }
+
+            btnNext.addEventListener('click', () => { if (validateCurrentStep()) { currentStep++; updateUI(); } });
+            btnPrev.addEventListener('click', () => { currentStep--; updateUI(); });
+            btnSubmitFake.addEventListener('click', function() {
+                if (validateCurrentStep()) {
+                    Swal.fire({
+                        title: 'Apakah Anda Yakin?',
+                        text: "Pastikan semua jawaban kuesioner sudah terisi dengan benar.",
+                        icon: 'warning',
+                        showCancelButton: true,
+                        confirmButtonText: 'Ya, Kirim Kuesioner!',
+                        cancelButtonText: 'Batal'
+                    }).then((result) => { if (result.isConfirmed) form.submit(); })
+                }
+            });
+            updateUI(); 
+        });
+
+        function toggleLainnya(element, id) {
+            const inputEsai = document.getElementById('lainnya_' + id);
+            if (element.checked && element.value === 'Lainnya') {
+                inputEsai.classList.remove('hidden'); 
+                inputEsai.setAttribute('required', 'required'); 
+            } else if (element.type === 'radio' || (element.type === 'checkbox' && !element.checked)) {
+                inputEsai.classList.add('hidden');
+                inputEsai.removeAttribute('required');
+                inputEsai.value = ''; 
+            }
+        }
+    </script>
 </body>
 </html>

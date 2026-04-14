@@ -15,7 +15,7 @@ public function up(): void
         $table->id();
         $table->string('nim'); // Untuk tahu siapa yang menjawab
         $table->unsignedBigInteger('kuesioner_id'); // ID dari pertanyaan
-        $table->text('jawaban'); // Isi jawabannya (bisa teks, bisa ID opsi)
+        $table->text('jawaban')->nullable();
         $table->timestamps();
     });
 }
