@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Tracer Study Selesai - ARS University</title>
+    <title>Tracer Study Alumni Selesai</title>
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
 <body class="bg-gray-50 font-sans antialiased min-h-screen flex flex-col">
@@ -15,7 +15,7 @@
                     <div class="bg-white p-1 rounded flex items-center justify-center h-8 w-8 sm:h-10 sm:w-10 overflow-hidden">
                         <img src="{{ asset('images/logo-ars-university.webp') }}" alt="Logo ARS" class="w-full h-full object-contain">
                     </div>
-                    <span class="font-bold tracking-widest uppercase text-ars-yellow">Tracer Study</span>
+                    <span class="font-bold tracking-widest uppercase text-ars-yellow">KUESIONER ALUMNI</span>
                 </div>
             </div>
         </div>
@@ -79,10 +79,5 @@
         </p>
     </footer>
 
-    <style>
-        @keyframes blob { 0% { transform: translate(0px, 0px) scale(1); } 33% { transform: translate(30px, -50px) scale(1.1); } 66% { transform: translate(-20px, 20px) scale(0.9); } 100% { transform: translate(0px, 0px) scale(1); } }
-        .animate-blob { animation: blob 7s infinite; }
-        .animation-delay-2000 { animation-delay: 2s; }
-    </style>
 </body>
 </html>

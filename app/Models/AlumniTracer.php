@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class AlumniTracer extends Model
 {
-    protected $primaryKey = 'alumni_tracer_no';
+protected $primaryKey = 'alumni_tracer_no';
 protected $table = 'alumni_tracer';
 
 public function jawaban()

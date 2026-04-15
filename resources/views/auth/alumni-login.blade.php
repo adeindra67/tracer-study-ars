@@ -17,11 +17,11 @@
 
                 <h2 class="text-4xl font-extrabold mb-6 leading-tight">
                     Selamat Datang di <br> 
-                    <span class="text-ars-yellow text-5xl">Tracer Studi</span>
+                    <span class="text-ars-yellow text-5xl">Portal Login Tracer Study Alumni</span>
                 </h2>
                 
                 <p class="text-blue-100 text-lg mb-8 leading-relaxed">
-                    Kontribusi Anda sangat berarti bagi pengembangan kurikulum dan peningkatan kualitas lulusan kami di masa depan.
+                    Silahkan login dengan memasukkan <strong> NIM </strong> dan <strong> Tanggal Lahir </strong> Anda. Kontribusi Anda sangat berarti bagi pengembangan kurikulum dan peningkatan kualitas lulusan kami di masa depan.
                 </p>
 
                 <div class="bg-white/10 backdrop-blur-md border border-white/20 p-6 rounded-xl mt-10 transition hover:bg-white/20">
@@ -71,7 +71,7 @@
                inputmode="numeric" 
                pattern="[0-9]*"
                class="w-full px-5 py-4 border border-gray-200 rounded-xl focus:ring-4 focus:ring-ars-navy/5 focus:border-ars-navy outline-none transition-all duration-300 placeholder-gray-300 shadow-sm"
-               placeholder="Contoh: 21000123"
+               placeholder="Contoh: 17221034"
                aria-label="Masukkan Nomor Induk Mahasiswa Anda">
         
         <div class="absolute right-4 top-1/2 -translate-y-1/2 text-gray-300 group-focus-within:text-ars-navy transition-colors">
@@ -93,7 +93,7 @@
                required 
                inputmode="numeric"
                class="w-full px-5 py-4 border border-gray-200 rounded-xl focus:ring-4 focus:ring-ars-navy/5 focus:border-ars-navy outline-none transition-all duration-300 text-ars-gray shadow-sm placeholder-gray-300"
-               placeholder="Tgl / Bln / Thn (Contoh: 10/05/1998)"
+               placeholder="Tgl / Bln / Thn (Contoh: 07/09/2003)"
                aria-label="Masukkan tanggal lahir format hari dua digit, bulan dua digit, tahun empat digit">
         
         <div class="absolute right-4 top-1/2 -translate-y-1/2 text-gray-300 group-focus-within:text-ars-navy transition-colors">
@@ -132,10 +132,7 @@
         </div>
     </div>
 
-    <style>
-        @keyframes shake { 0%, 100% { transform: translateX(0); } 25% { transform: translateX(-5px); } 75% { transform: translateX(5px); } }
-        .animate-shake { animation: shake 0.4s ease-in-out; }
-    </style>
+
 @push('scripts')
 <script>
     const inputDisplay = document.getElementById('tanggal_lahir_mask');

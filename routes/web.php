@@ -32,4 +32,21 @@ Route::middleware('auth:alumni')->prefix('alumni')->group(function () {
     Route::post('/dashboard', [DashboardController::class, 'store'])->name('alumni.dashboard.store');
 });
 
+// ==========================================
+// RUTE UNTUK PENGGUNA LULUSAN (MITRA / HRD)
+// ==========================================
+Route::prefix('mitra')->name('mitra.')->group(function () {
+    // Halaman Pencarian Alumni
+    Route::get('/', [App\Http\Controllers\MitraController::class, 'index'])->name('index');
+    // Proses Verifikasi Nama & Tanggal Lahir
+    Route::post('/search', [App\Http\Controllers\MitraController::class, 'search'])->name('search');
+    
+    // Halaman Dashboard Kuesioner (Hanya bisa diakses jika lolos verifikasi)
+    Route::get('/dashboard', [App\Http\Controllers\MitraController::class, 'dashboard'])->name('dashboard');
+    // Proses Simpan Penilaian
+    Route::post('/store', [App\Http\Controllers\MitraController::class, 'store'])->name('store');
+    // Halaman Selesai
+    Route::get('/selesai', [App\Http\Controllers\MitraController::class, 'selesai'])->name('selesai');
+});
+
 require __DIR__.'/auth.php';

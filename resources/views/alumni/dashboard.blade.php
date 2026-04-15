@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Tracer Study - ARS University</title>
+    <title>Tracer Study Alumni- ARS University</title>
     @vite(['resources/css/app.css', 'resources/js/app.js'])
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <style>
@@ -21,7 +21,7 @@
                     <div class="bg-white p-1 rounded flex items-center justify-center h-8 w-8 sm:h-10 sm:w-10 overflow-hidden">
                         <img src="{{ asset('images/logo-ars-university.webp') }}" alt="Logo ARS" class="w-full h-full object-contain">
                     </div>
-                    <span class="font-bold tracking-widest uppercase text-ars-yellow text-sm sm:text-base">Tracer Study</span>
+                    <span class="font-bold tracking-widest uppercase text-ars-yellow text-sm sm:text-base">KUESIONER</span>
                 </div>
                 <div class="flex items-center gap-4">
                     <span class="text-sm text-gray-300 hidden sm:block">NIM: {{ $alumni->nim }}</span>
@@ -244,7 +244,6 @@
         
         <p class="text-center text-sm text-gray-400 mt-10 mb-6">&copy; {{ date('Y') }} ARS University. All Rights Reserved.</p>
     </main>
-
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             const steps = document.querySelectorAll('.step-content');

@@ -1,3 +1,52 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+/* =========================================
+   CUSTOM STYLING TRACER STUDY (GLOBAL)
+   ========================================= */
+
+/* Animasi Error (Pintu Masuk Mitra) */
+@keyframes shake { 
+    0%, 100% { transform: translateX(0); } 
+    25% { transform: translateX(-5px); } 
+    75% { transform: translateX(5px); } 
+}
+.animate-shake { animation: shake 0.4s ease-in-out; }
+
+/* Animasi Transisi Kuesioner (Dipakai di Dashboard Alumni & Mitra) */
+.step-content { 
+    display: none; 
+    animation: fadeInUp 0.4s ease-out; 
+}
+.step-content.active { 
+    display: block; 
+}
+@keyframes fadeInUp { 
+    from { opacity: 0; transform: translateY(10px); } 
+    to { opacity: 1; transform: translateY(0); } 
+}
+
+/* Animasi Blob Background (Halaman Selesai / Thank You) */
+@keyframes blob { 
+    0% { transform: translate(0px, 0px) scale(1); } 
+    33% { transform: translate(30px, -50px) scale(1.1); } 
+    66% { transform: translate(-20px, 20px) scale(0.9); } 
+    100% { transform: translate(0px, 0px) scale(1); } 
+}
+.animate-blob { animation: blob 7s infinite; }
+.animation-delay-2000 { animation-delay: 2s; }
+
+/* Styling Kotak Skala 1-4 (Khusus Mitra) */
+.radio-label input:checked + div {
+    background-color: #1e3a8a; /* warna ars-navy */
+    color: white;
+    border-color: #1e3a8a;
+    transform: scale(1.05);
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+}
+
+/* Sembunyikan Ikon Kalender Bawaan Browser */
+input[type="date"]::-webkit-calendar-picker-indicator {
+    background: transparent; bottom: 0; color: transparent; cursor: pointer; height: auto; left: 0; position: absolute; right: 0; top: 0; width: auto;
+}

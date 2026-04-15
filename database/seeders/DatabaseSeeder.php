@@ -10,11 +10,12 @@ class DatabaseSeeder extends Seeder
     /**
      * Seed the application's database.
      */
-    public function run(): void
-    {
-        // Memanggil Seeder Alumni yang baru kita buat
-        $this->call([
-            AlumniSeeder::class,
-        ]);
-    }
+ public function run(): void
+{
+$this->call([
+        AlumniSeeder::class,
+        KuesionerMitraSeeder::class,
+        KuesionerSeeder::class,
+    ]);
+}
 }
