@@ -1,4 +1,5 @@
 <x-guest-layout>
+    <x-slot:title>Login Alumni | Tracer Study ARS</x-slot:title>
     <div class="min-h-screen flex flex-col md:flex-row shadow-2xl overflow-hidden rounded-2xl mx-auto max-w-6xl my-0 md:my-10 border border-gray-100">
         
 
@@ -7,17 +8,17 @@
             <div class="relative z-10">
                 <div class="mb-8 flex items-center gap-4">
                     <div class="bg-white p-3 rounded-xl shadow-lg transform transition hover:rotate-6">
-                        <x-application-logo class="w-16 h-16" />
+                        <img src="{{ asset('images/logo-ars-university.webp') }}" alt="Logo ARS" class="w-12 h-12 object-contain">
                     </div>
                     <div>
                         <h1 class="text-2xl font-black tracking-tighter text-ars-yellow">ARS UNIVERSITY</h1>
-                        <p class="text-xs uppercase tracking-widest opacity-80">Tracer Study</p>
+                        <p class="text-xs uppercase tracking-widest opacity-80">Tracer Study Alumni</p>
                     </div>
                 </div>
 
                 <h2 class="text-4xl font-extrabold mb-6 leading-tight">
-                    Selamat Datang di <br> 
-                    <span class="text-ars-yellow text-5xl">Portal Login Tracer Study Alumni</span>
+                 <br> 
+                    <span class="text-ars-yellow text-5xl">Portal Login Alumni</span>
                 </h2>
                 
                 <p class="text-blue-100 text-lg mb-8 leading-relaxed">
@@ -116,7 +117,8 @@
                     </button>
                 </form>
 
-                <div class="hidden md:flex justify-center mt-8">
+                <!-- Diubah: hidden md:flex menjadi flex agar tampil di mobile -->
+                <div class="flex justify-center mt-6 md:mt-8">
                     <a href="{{ url('/') }}" class="inline-flex items-center gap-2 text-sm font-bold text-ars-gray hover:text-ars-navy transition-colors duration-200 group">
                         <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 transform group-hover:-translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
@@ -181,4 +183,3 @@
 </script>
 @endpush
 </x-guest-layout>
-

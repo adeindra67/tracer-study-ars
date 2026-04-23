@@ -16,65 +16,62 @@ class KuesionerSeeder extends Seeder
 
         $kuesioner = [
             // ================= SECTION 1: MASA TUNGGU LULUSAN =================
-            ['kode_dikti' => 'f8', 'kategori' => 'Masa Tunggu Lulusan', 'is_wajib' => true, 'pertanyaan' => 'Jelaskan Status anda saat ini?', 'tipe_jawaban' => 'radio', 'opsi_jawaban' => json_encode(['Bekerja (full time/ part time)', 'Belum memungkinkan kerja', 'Wiraswasta', 'Melanjutkan pendidikan', 'Tidak kerja tetapi sedang mencari kerja'])],
-            ['kode_dikti' => 'f504', 'kategori' => 'Masa Tunggu Lulusan', 'is_wajib' => true, 'pertanyaan' => 'Apakah anda telah mendapatkan pekerjaan <= 6 bulan/ termasuk bekerja sebelum lulus?', 'tipe_jawaban' => 'radio', 'opsi_jawaban' => json_encode(['Ya', 'Tidak'])],
-            ['kode_dikti' => 'f502', 'kategori' => 'Masa Tunggu Lulusan', 'is_wajib' => true, 'pertanyaan' => 'Dalam berapa bulan anda mendapatkan pekerjaan?', 'tipe_jawaban' => 'number', 'opsi_jawaban' => null],
-            ['kode_dikti' => 'f505', 'kategori' => 'Masa Tunggu Lulusan', 'is_wajib' => false, 'pertanyaan' => 'Berapa rata-rata pendapatan anda perbulan? (take home pay)', 'tipe_jawaban' => 'number', 'opsi_jawaban' => null],
-            ['kode_dikti' => 'f5a1', 'kategori' => 'Masa Tunggu Lulusan', 'is_wajib' => true, 'pertanyaan' => 'Dimana lokasi tempat anda bekerja? Isikan nama provinsi lokasi anda bekerja.', 'tipe_jawaban' => 'radio_lainnya', 'opsi_jawaban' => json_encode(['DKI Jakarta', 'Jawa Barat', 'Jawa Tengah', 'DI Yogyakarta', 'Jawa Timur', 'Banten', 'Bali', 'Sumatera Utara', 'Sulawesi Selatan', 'Kalimantan Timur', 'Luar Negeri'])],
-            ['kode_dikti' => 'f5a2', 'kategori' => 'Masa Tunggu Lulusan', 'is_wajib' => true, 'pertanyaan' => 'Dimana lokasi tempat anda bekerja? isikan nama kota/kabupaten lokasi anda bekerja.', 'tipe_jawaban' => 'radio_lainnya', 'opsi_jawaban' => json_encode(['Jakarta Pusat', 'Jakarta Selatan', 'Kota Bandung','Kabupaten Bandung', 'Surabaya', 'Semarang', 'Medan', 'Makassar', 'Denpasar'])],
-            ['kode_dikti' => 'f1101', 'kategori' => 'Masa Tunggu Lulusan', 'is_wajib' => true, 'pertanyaan' => 'Apa jenis perusahaan/instansi/institusi tempat anda bekerja sekarang?', 'tipe_jawaban' => 'radio_lainnya', 'opsi_jawaban' => json_encode(['Instansi pemerintah', 'BUMN/BUMD', 'Institusi/Organisasi Multilateral', 'Organisasi non-profit/Lembaga Swadaya Masyarakat', 'Perusahaan swasta', 'Wiraswasta/perusahaan asing'])],
+            ['kode_dikti' => 'f8', 'grup' => 'Masa Tunggu Lulusan', 'is_wajib' => true, 'indikator' => 'Jelaskan Status anda saat ini?', 'tipe_jawaban' => 'radio', 'opsi_jawaban' => json_encode(['Bekerja (full time/ part time)', 'Belum memungkinkan kerja', 'Wiraswasta', 'Melanjutkan pendidikan', 'Tidak kerja tetapi sedang mencari kerja'])],
+            ['kode_dikti' => 'f504', 'grup' => 'Masa Tunggu Lulusan', 'is_wajib' => true, 'indikator' => 'Apakah anda telah mendapatkan pekerjaan <= 6 bulan/ termasuk bekerja sebelum lulus?', 'tipe_jawaban' => 'radio', 'opsi_jawaban' => json_encode(['Ya', 'Tidak'])],
+            ['kode_dikti' => 'f502', 'grup' => 'Masa Tunggu Lulusan', 'is_wajib' => true, 'indikator' => 'Dalam berapa bulan anda mendapatkan pekerjaan?', 'tipe_jawaban' => 'number', 'opsi_jawaban' => null],
+            ['kode_dikti' => 'f505', 'grup' => 'Masa Tunggu Lulusan', 'is_wajib' => false, 'indikator' => 'Berapa rata-rata pendapatan anda perbulan? (take home pay)', 'tipe_jawaban' => 'number', 'opsi_jawaban' => null],
+            ['kode_dikti' => 'f5a1', 'grup' => 'Masa Tunggu Lulusan', 'is_wajib' => true, 'indikator' => 'Dimana lokasi tempat anda bekerja? Isikan nama provinsi lokasi anda bekerja.', 'tipe_jawaban' => 'radio_lainnya', 'opsi_jawaban' => json_encode(['DKI Jakarta', 'Jawa Barat', 'Jawa Tengah', 'DI Yogyakarta', 'Jawa Timur', 'Banten', 'Bali', 'Sumatera Utara', 'Sulawesi Selatan', 'Kalimantan Timur', 'Luar Negeri'])],
+            ['kode_dikti' => 'f5a2', 'grup' => 'Masa Tunggu Lulusan', 'is_wajib' => true, 'indikator' => 'Dimana lokasi tempat anda bekerja? isikan nama kota/kabupaten lokasi anda bekerja.', 'tipe_jawaban' => 'radio_lainnya', 'opsi_jawaban' => json_encode(['Jakarta Pusat', 'Jakarta Selatan', 'Kota Bandung', 'Kabupaten Bandung', 'Surabaya', 'Semarang', 'Medan', 'Makassar', 'Denpasar'])],
+            ['kode_dikti' => 'f1101', 'grup' => 'Masa Tunggu Lulusan', 'is_wajib' => true, 'indikator' => 'Apa jenis perusahaan/instansi/institusi tempat anda bekerja sekarang?', 'tipe_jawaban' => 'radio_lainnya', 'opsi_jawaban' => json_encode(['Instansi pemerintah', 'BUMN/BUMD', 'Institusi/Organisasi Multilateral', 'Organisasi non-profit/Lembaga Swadaya Masyarakat', 'Perusahaan swasta', 'Wiraswasta/perusahaan asing'])],
 
             // ================= SECTION 2: NAMA PERUSAHAAN / WIRAUSAHA =================
-            ['kode_dikti' => 'f5b', 'kategori' => 'Nama Perusahaan / Wirausaha', 'is_wajib' => true, 'pertanyaan' => 'Apa nama perusahaan/kantor tempat anda bekerja?', 'tipe_jawaban' => 'text', 'opsi_jawaban' => null],
-            ['kode_dikti' => 'f5c', 'kategori' => 'Nama Perusahaan / Wirausaha', 'is_wajib' => false, 'pertanyaan' => 'Bila berwiraswasta, apa profesi/jabatan anda saat ini?', 'tipe_jawaban' => 'radio', 'opsi_jawaban' => json_encode(['Founder', 'Co-founder', 'Staff', 'Freelance/kerja lepas'])],
-            ['kode_dikti' => 'f5d', 'kategori' => 'Nama Perusahaan / Wirausaha', 'is_wajib' => true, 'pertanyaan' => 'Apa tingkat tempat kerja anda?', 'tipe_jawaban' => 'radio', 'opsi_jawaban' => json_encode(['Lokal/wilayah/wiraswasta/tidak berbadan hukum', 'Nasional/wiraswasta berbadan hukum', 'Multinasional/internasional'])],
+            ['kode_dikti' => 'f5b', 'grup' => 'Nama Perusahaan / Wirausaha', 'is_wajib' => true, 'indikator' => 'Apa nama perusahaan/kantor tempat anda bekerja?', 'tipe_jawaban' => 'text', 'opsi_jawaban' => null],
+            ['kode_dikti' => 'f5c', 'grup' => 'Nama Perusahaan / Wirausaha', 'is_wajib' => false, 'indikator' => 'Bila berwiraswasta, apa profesi/jabatan anda saat ini?', 'tipe_jawaban' => 'radio', 'opsi_jawaban' => json_encode(['Founder', 'Co-founder', 'Staff', 'Freelance/kerja lepas'])],
+            ['kode_dikti' => 'f5d', 'grup' => 'Nama Perusahaan / Wirausaha', 'is_wajib' => true, 'indikator' => 'Apa tingkat tempat kerja anda?', 'tipe_jawaban' => 'radio', 'opsi_jawaban' => json_encode(['Lokal/wilayah/wiraswasta/tidak berbadan hukum', 'Nasional/wiraswasta berbadan hukum', 'Multinasional/internasional'])],
 
             // ================= SECTION 3: PERTANYAAN STUDI LANJUT =================
-            ['kode_dikti' => 'f18a', 'kategori' => 'Pertanyaan Studi Lanjut', 'is_wajib' => true, 'pertanyaan' => 'Sumber biaya', 'tipe_jawaban' => 'radio', 'opsi_jawaban' => json_encode(['Biaya sendiri', 'Beasiswa', 'Tidak lanjut S2'])],
-            ['kode_dikti' => 'f18b', 'kategori' => 'Pertanyaan Studi Lanjut', 'is_wajib' => true, 'pertanyaan' => 'Nama perguruan tinggi (jika tidak lanjut kuliah S2 gunakan tanda (-))', 'tipe_jawaban' => 'text', 'opsi_jawaban' => null],
-            ['kode_dikti' => 'f18c', 'kategori' => 'Pertanyaan Studi Lanjut', 'is_wajib' => true, 'pertanyaan' => 'Program Studi (jika tidak lanjut kuliah S2 gunakan tanda (-))', 'tipe_jawaban' => 'text', 'opsi_jawaban' => null],
-            
-            // REVISI: f18d sekarang menggunakan tipe 'date' dan is_wajib false
-            ['kode_dikti' => 'f18d', 'kategori' => 'Pertanyaan Studi Lanjut', 'is_wajib' => false, 'pertanyaan' => 'Tanggal masuk (S2)', 'tipe_jawaban' => 'date', 'opsi_jawaban' => null],
-            
-            ['kode_dikti' => 'f1201', 'kategori' => 'Pertanyaan Studi Lanjut', 'is_wajib' => true, 'pertanyaan' => 'Sebutkan sumberdana dalam pembiayaan kuliah diploma/sarjana? (bukan ketika studi lanjut)', 'tipe_jawaban' => 'radio_lainnya', 'opsi_jawaban' => json_encode(['Biaya sendiri/keluarga', 'Beasiswa ADIK', 'Beasiswa bidikmisi/KIP', 'Beasiswa PPA', 'Beasiswa afirmasi', 'Beasiswa perusahaan/swasta'])],
+            ['kode_dikti' => 'f18a', 'grup' => 'Pertanyaan Studi Lanjut', 'is_wajib' => true, 'indikator' => 'Sumber biaya', 'tipe_jawaban' => 'radio', 'opsi_jawaban' => json_encode(['Biaya sendiri', 'Beasiswa', 'Tidak lanjut S2'])],
+            ['kode_dikti' => 'f18b', 'grup' => 'Pertanyaan Studi Lanjut', 'is_wajib' => true, 'indikator' => 'Nama perguruan tinggi (jika tidak lanjut kuliah S2 gunakan tanda (-))', 'tipe_jawaban' => 'text', 'opsi_jawaban' => null],
+            ['kode_dikti' => 'f18c', 'grup' => 'Pertanyaan Studi Lanjut', 'is_wajib' => true, 'indikator' => 'Program Studi (jika tidak lanjut kuliah S2 gunakan tanda (-))', 'tipe_jawaban' => 'text', 'opsi_jawaban' => null],
+            ['kode_dikti' => 'f18d', 'grup' => 'Pertanyaan Studi Lanjut', 'is_wajib' => false, 'indikator' => 'Tanggal masuk (S2)', 'tipe_jawaban' => 'date', 'opsi_jawaban' => null],
+            ['kode_dikti' => 'f1201', 'grup' => 'Pertanyaan Studi Lanjut', 'is_wajib' => true, 'indikator' => 'Sebutkan sumberdana dalam pembiayaan kuliah diploma/sarjana? (bukan ketika studi lanjut)', 'tipe_jawaban' => 'radio_lainnya', 'opsi_jawaban' => json_encode(['Biaya sendiri/keluarga', 'Beasiswa ADIK', 'Beasiswa bidikmisi/KIP', 'Beasiswa PPA', 'Beasiswa afirmasi', 'Beasiswa perusahaan/swasta'])],
 
             // ================= SECTION 4: HUBUNGAN BIDANG STUDI =================
-            ['kode_dikti' => 'f14', 'kategori' => 'Hubungan Bidang Studi dengan Pekerjaan', 'is_wajib' => true, 'pertanyaan' => 'Seberapa erat hubungan bidang studi dengan pekerjaan anda?', 'tipe_jawaban' => 'radio', 'opsi_jawaban' => json_encode(['Sangat erat', 'Erat', 'Cukup Erat', 'Kurang Erat', 'Tidak sama sekali'])],
-            ['kode_dikti' => 'f15', 'kategori' => 'Hubungan Bidang Studi dengan Pekerjaan', 'is_wajib' => false, 'pertanyaan' => 'Tingkat pendidikan apa yang paling tepat/sesuai untuk pekerjaan saat ini?', 'tipe_jawaban' => 'radio', 'opsi_jawaban' => json_encode(['Setingkat Lebih tinggi', 'Tingkat yang sama', 'Setingkat lebih rendah', 'Tidak perlu pendidikan tinggi'])],
+            ['kode_dikti' => 'f14', 'grup' => 'Hubungan Bidang Studi dengan Pekerjaan', 'is_wajib' => true, 'indikator' => 'Seberapa erat hubungan bidang studi dengan pekerjaan anda?', 'tipe_jawaban' => 'radio', 'opsi_jawaban' => json_encode(['Sangat erat', 'Erat', 'Cukup Erat', 'Kurang Erat', 'Tidak sama sekali'])],
+            ['kode_dikti' => 'f15', 'grup' => 'Hubungan Bidang Studi dengan Pekerjaan', 'is_wajib' => false, 'indikator' => 'Tingkat pendidikan apa yang paling tepat/sesuai untuk pekerjaan saat ini?', 'tipe_jawaban' => 'radio', 'opsi_jawaban' => json_encode(['Setingkat Lebih tinggi', 'Tingkat yang sama', 'Setingkat lebih rendah', 'Tidak perlu pendidikan tinggi'])],
 
             // ================= SECTION 5: KOMPETENSI SAAT KULIAH =================
-            ['kode_dikti' => 'f1761', 'kategori' => 'Kompetensi Saat Kuliah', 'is_wajib' => false, 'pertanyaan' => 'Penilaian Etika Anda saat kuliah?', 'tipe_jawaban' => 'scale', 'opsi_jawaban' => null],
-            ['kode_dikti' => 'f1763', 'kategori' => 'Kompetensi Saat Kuliah', 'is_wajib' => false, 'pertanyaan' => 'Penilaian Keahlian berdasarkan bidang ilmu anda saat kuliah?', 'tipe_jawaban' => 'scale', 'opsi_jawaban' => null],
-            ['kode_dikti' => 'f1765', 'kategori' => 'Kompetensi Saat Kuliah', 'is_wajib' => false, 'pertanyaan' => 'Penilaian Bahasa Inggris Anda saat Kuliah?', 'tipe_jawaban' => 'scale', 'opsi_jawaban' => null],
-            ['kode_dikti' => 'f1767', 'kategori' => 'Kompetensi Saat Kuliah', 'is_wajib' => false, 'pertanyaan' => 'Penilaian penggunaan teknologi informasi anda saat kuliah?', 'tipe_jawaban' => 'scale', 'opsi_jawaban' => null],
-            ['kode_dikti' => 'f1769', 'kategori' => 'Kompetensi Saat Kuliah', 'is_wajib' => false, 'pertanyaan' => 'Penilaian Komunikasi Anda saat kuliah?', 'tipe_jawaban' => 'scale', 'opsi_jawaban' => null],
-            ['kode_dikti' => 'f1771', 'kategori' => 'Kompetensi Saat Kuliah', 'is_wajib' => false, 'pertanyaan' => 'Penilaian Kerja sama Tim Anda saat Kuliah?', 'tipe_jawaban' => 'scale', 'opsi_jawaban' => null],
-            ['kode_dikti' => 'f1773', 'kategori' => 'Kompetensi Saat Kuliah', 'is_wajib' => false, 'pertanyaan' => 'Penilaian pengembangan anda saat kuliah?', 'tipe_jawaban' => 'scale', 'opsi_jawaban' => null],
+            ['kode_dikti' => 'f1761', 'grup' => 'Kompetensi Saat Kuliah', 'is_wajib' => false, 'indikator' => 'Penilaian Etika Anda saat kuliah?', 'tipe_jawaban' => 'scale', 'opsi_jawaban' => null],
+            ['kode_dikti' => 'f1763', 'grup' => 'Kompetensi Saat Kuliah', 'is_wajib' => false, 'indikator' => 'Penilaian Keahlian berdasarkan bidang ilmu anda saat kuliah?', 'tipe_jawaban' => 'scale', 'opsi_jawaban' => null],
+            ['kode_dikti' => 'f1765', 'grup' => 'Kompetensi Saat Kuliah', 'is_wajib' => false, 'indikator' => 'Penilaian Bahasa Inggris Anda saat Kuliah?', 'tipe_jawaban' => 'scale', 'opsi_jawaban' => null],
+            ['kode_dikti' => 'f1767', 'grup' => 'Kompetensi Saat Kuliah', 'is_wajib' => false, 'indikator' => 'Penilaian penggunaan teknologi informasi anda saat kuliah?', 'tipe_jawaban' => 'scale', 'opsi_jawaban' => null],
+            ['kode_dikti' => 'f1769', 'grup' => 'Kompetensi Saat Kuliah', 'is_wajib' => false, 'indikator' => 'Penilaian Komunikasi Anda saat kuliah?', 'tipe_jawaban' => 'scale', 'opsi_jawaban' => null],
+            ['kode_dikti' => 'f1771', 'grup' => 'Kompetensi Saat Kuliah', 'is_wajib' => false, 'indikator' => 'Penilaian Kerja sama Tim Anda saat Kuliah?', 'tipe_jawaban' => 'scale', 'opsi_jawaban' => null],
+            ['kode_dikti' => 'f1773', 'grup' => 'Kompetensi Saat Kuliah', 'is_wajib' => false, 'indikator' => 'Penilaian pengembangan anda saat kuliah?', 'tipe_jawaban' => 'scale', 'opsi_jawaban' => null],
 
             // ================= SECTION 6: KOMPETENSI DI PEKERJAAN =================
-            ['kode_dikti' => 'f1762', 'kategori' => 'Kompetensi di Pekerjaan', 'is_wajib' => true, 'pertanyaan' => 'Etika', 'tipe_jawaban' => 'scale', 'opsi_jawaban' => null],
-            ['kode_dikti' => 'f1764', 'kategori' => 'Kompetensi di Pekerjaan', 'is_wajib' => true, 'pertanyaan' => 'Keahlian berdasarkan bidang ilmu', 'tipe_jawaban' => 'scale', 'opsi_jawaban' => null],
-            ['kode_dikti' => 'f1766', 'kategori' => 'Kompetensi di Pekerjaan', 'is_wajib' => true, 'pertanyaan' => 'Bahasa inggris', 'tipe_jawaban' => 'scale', 'opsi_jawaban' => null],
-            ['kode_dikti' => 'f1768', 'kategori' => 'Kompetensi di Pekerjaan', 'is_wajib' => true, 'pertanyaan' => 'Penggunaan teknologi informasi', 'tipe_jawaban' => 'scale', 'opsi_jawaban' => null],
-            ['kode_dikti' => 'f1770', 'kategori' => 'Kompetensi di Pekerjaan', 'is_wajib' => true, 'pertanyaan' => 'Komunikasi', 'tipe_jawaban' => 'scale', 'opsi_jawaban' => null],
-            ['kode_dikti' => 'f1772', 'kategori' => 'Kompetensi di Pekerjaan', 'is_wajib' => true, 'pertanyaan' => 'Kerja sama tim', 'tipe_jawaban' => 'scale', 'opsi_jawaban' => null],
-            ['kode_dikti' => 'f1774', 'kategori' => 'Kompetensi di Pekerjaan', 'is_wajib' => true, 'pertanyaan' => 'Pengembangan diri', 'tipe_jawaban' => 'scale', 'opsi_jawaban' => null],
+            ['kode_dikti' => 'f1762', 'grup' => 'Kompetensi di Pekerjaan', 'is_wajib' => true, 'indikator' => 'Etika', 'tipe_jawaban' => 'scale', 'opsi_jawaban' => null],
+            ['kode_dikti' => 'f1764', 'grup' => 'Kompetensi di Pekerjaan', 'is_wajib' => true, 'indikator' => 'Keahlian berdasarkan bidang ilmu', 'tipe_jawaban' => 'scale', 'opsi_jawaban' => null],
+            ['kode_dikti' => 'f1766', 'grup' => 'Kompetensi di Pekerjaan', 'is_wajib' => true, 'indikator' => 'Bahasa inggris', 'tipe_jawaban' => 'scale', 'opsi_jawaban' => null],
+            ['kode_dikti' => 'f1768', 'grup' => 'Kompetensi di Pekerjaan', 'is_wajib' => true, 'indikator' => 'Penggunaan teknologi informasi', 'tipe_jawaban' => 'scale', 'opsi_jawaban' => null],
+            ['kode_dikti' => 'f1770', 'grup' => 'Kompetensi di Pekerjaan', 'is_wajib' => true, 'indikator' => 'Komunikasi', 'tipe_jawaban' => 'scale', 'opsi_jawaban' => null],
+            ['kode_dikti' => 'f1772', 'grup' => 'Kompetensi di Pekerjaan', 'is_wajib' => true, 'indikator' => 'Kerja sama tim', 'tipe_jawaban' => 'scale', 'opsi_jawaban' => null],
+            ['kode_dikti' => 'f1774', 'grup' => 'Kompetensi di Pekerjaan', 'is_wajib' => true, 'indikator' => 'Pengembangan diri', 'tipe_jawaban' => 'scale', 'opsi_jawaban' => null],
 
             // ================= SECTION 7: METODE PEMBELAJARAN =================
-            ['kode_dikti' => 'f21', 'kategori' => 'Metode Pembelajaran', 'is_wajib' => true, 'pertanyaan' => 'Perkuliahan', 'tipe_jawaban' => 'radio', 'opsi_jawaban' => json_encode(['Sangat Besar', 'Besar', 'Cukup Besar', 'Kurang Besar', 'Tidak sama Sekali'])],
-            ['kode_dikti' => 'f22', 'kategori' => 'Metode Pembelajaran', 'is_wajib' => true, 'pertanyaan' => 'Demonstrasi', 'tipe_jawaban' => 'radio', 'opsi_jawaban' => json_encode(['Sangat Besar', 'Besar', 'Cukup Besar', 'Kurang Besar', 'Tidak sama Sekali'])],
-            ['kode_dikti' => 'f23', 'kategori' => 'Metode Pembelajaran', 'is_wajib' => true, 'pertanyaan' => 'Partisipasi dalam proyek riset', 'tipe_jawaban' => 'radio', 'opsi_jawaban' => json_encode(['Sangat Besar', 'Besar', 'Cukup Besar', 'Kurang Besar', 'Tidak sama Sekali'])],
-            ['kode_dikti' => 'f24', 'kategori' => 'Metode Pembelajaran', 'is_wajib' => true, 'pertanyaan' => 'Magang', 'tipe_jawaban' => 'radio', 'opsi_jawaban' => json_encode(['Sangat Besar', 'Besar', 'Cukup Besar', 'Kurang Besar', 'Tidak sama Sekali'])],
-            ['kode_dikti' => 'f25', 'kategori' => 'Metode Pembelajaran', 'is_wajib' => true, 'pertanyaan' => 'Pratikum', 'tipe_jawaban' => 'radio', 'opsi_jawaban' => json_encode(['Sangat Besar', 'Besar', 'Cukup Besar', 'Kurang Besar', 'Tidak sama Sekali'])],
-            ['kode_dikti' => 'f26', 'kategori' => 'Metode Pembelajaran', 'is_wajib' => true, 'pertanyaan' => 'Kerja Lapangan', 'tipe_jawaban' => 'radio', 'opsi_jawaban' => json_encode(['Sangat Besar', 'Besar', 'Cukup Besar', 'Kurang Besar', 'Tidak sama Sekali'])],
-            ['kode_dikti' => 'f27', 'kategori' => 'Metode Pembelajaran', 'is_wajib' => true, 'pertanyaan' => 'Diskusi', 'tipe_jawaban' => 'radio', 'opsi_jawaban' => json_encode(['Sangat Besar', 'Besar', 'Cukup Besar', 'Kurang Besar', 'Tidak sama Sekali'])],
+            ['kode_dikti' => 'f21', 'grup' => 'Metode Pembelajaran', 'is_wajib' => true, 'indikator' => 'Perkuliahan', 'tipe_jawaban' => 'radio', 'opsi_jawaban' => json_encode(['Sangat Besar', 'Besar', 'Cukup Besar', 'Kurang Besar', 'Tidak sama Sekali'])],
+            ['kode_dikti' => 'f22', 'grup' => 'Metode Pembelajaran', 'is_wajib' => true, 'indikator' => 'Demonstrasi', 'tipe_jawaban' => 'radio', 'opsi_jawaban' => json_encode(['Sangat Besar', 'Besar', 'Cukup Besar', 'Kurang Besar', 'Tidak sama Sekali'])],
+            ['kode_dikti' => 'f23', 'grup' => 'Metode Pembelajaran', 'is_wajib' => true, 'indikator' => 'Partisipasi dalam proyek riset', 'tipe_jawaban' => 'radio', 'opsi_jawaban' => json_encode(['Sangat Besar', 'Besar', 'Cukup Besar', 'Kurang Besar', 'Tidak sama Sekali'])],
+            ['kode_dikti' => 'f24', 'grup' => 'Metode Pembelajaran', 'is_wajib' => true, 'indikator' => 'Magang', 'tipe_jawaban' => 'radio', 'opsi_jawaban' => json_encode(['Sangat Besar', 'Besar', 'Cukup Besar', 'Kurang Besar', 'Tidak sama Sekali'])],
+            ['kode_dikti' => 'f25', 'grup' => 'Metode Pembelajaran', 'is_wajib' => true, 'indikator' => 'Pratikum', 'tipe_jawaban' => 'radio', 'opsi_jawaban' => json_encode(['Sangat Besar', 'Besar', 'Cukup Besar', 'Kurang Besar', 'Tidak sama Sekali'])],
+            ['kode_dikti' => 'f26', 'grup' => 'Metode Pembelajaran', 'is_wajib' => true, 'indikator' => 'Kerja Lapangan', 'tipe_jawaban' => 'radio', 'opsi_jawaban' => json_encode(['Sangat Besar', 'Besar', 'Cukup Besar', 'Kurang Besar', 'Tidak sama Sekali'])],
+            ['kode_dikti' => 'f27', 'grup' => 'Metode Pembelajaran', 'is_wajib' => true, 'indikator' => 'Diskusi', 'tipe_jawaban' => 'radio', 'opsi_jawaban' => json_encode(['Sangat Besar', 'Besar', 'Cukup Besar', 'Kurang Besar', 'Tidak sama Sekali'])],
 
             // ================= SECTION 8: MENCARI PEKERJAAN =================
-            ['kode_dikti' => 'f301', 'kategori' => 'Mencari Pekerjaan', 'is_wajib' => true, 'pertanyaan' => 'Kapan anda mulai mencari pekerjaan? Mohon pekerjaan sembilan tidak dimasukkan', 'tipe_jawaban' => 'radio', 'opsi_jawaban' => json_encode(['Sebelum lulus kuliah', 'Sesudah lulus kuliah', 'Saya tidak mencari kerja'])],
-            ['kode_dikti' => 'f302', 'kategori' => 'Mencari Pekerjaan', 'is_wajib' => false, 'pertanyaan' => 'Kapan anda mulai mencari pekerjaan? Bila jawaban sebelum lulus, kira-kira berapa bulan sebelum lulus?', 'tipe_jawaban' => 'radio', 'opsi_jawaban' => json_encode(['1 bulan', '2 bulan', '3 bulan', '4 bulan', '5 bulan', '6 bulan', '> 6 bulan'])],
-            ['kode_dikti' => 'f303', 'kategori' => 'Mencari Pekerjaan', 'is_wajib' => false, 'pertanyaan' => 'Kapan anda mulai mencari pekerjaan? Bila jawaban sesudah lulus, kira-kira berapa bulan sesudah lulus?', 'tipe_jawaban' => 'radio', 'opsi_jawaban' => json_encode(['1 bulan', '2 bulan', '3 bulan', '4 bulan', '5 bulan', '6 bulan', '> 6 bulan'])],
-            ['kode_dikti' => 'f4', 'kategori' => 'Mencari Pekerjaan', 'is_wajib' => true, 'pertanyaan' => 'Bagaimana anda mencari pekerjaan tersebut? jawaban bisa lebih dari satu.', 'tipe_jawaban' => 'checkbox', 'opsi_jawaban' => json_encode([
+            ['kode_dikti' => 'f301', 'grup' => 'Mencari Pekerjaan', 'is_wajib' => true, 'indikator' => 'Kapan anda mulai mencari pekerjaan? Mohon pekerjaan sembilan tidak dimasukkan', 'tipe_jawaban' => 'radio', 'opsi_jawaban' => json_encode(['Sebelum lulus kuliah', 'Sesudah lulus kuliah', 'Saya tidak mencari kerja'])],
+            ['kode_dikti' => 'f302', 'grup' => 'Mencari Pekerjaan', 'is_wajib' => false, 'indikator' => 'Kapan anda mulai mencari pekerjaan? Bila jawaban sebelum lulus, kira-kira berapa bulan sebelum lulus?', 'tipe_jawaban' => 'radio', 'opsi_jawaban' => json_encode(['1 bulan', '2 bulan', '3 bulan', '4 bulan', '5 bulan', '6 bulan', '> 6 bulan'])],
+            ['kode_dikti' => 'f303', 'grup' => 'Mencari Pekerjaan', 'is_wajib' => false, 'indikator' => 'Kapan anda mulai mencari pekerjaan? Bila jawaban sesudah lulus, kira-kira berapa bulan sesudah lulus?', 'tipe_jawaban' => 'radio', 'opsi_jawaban' => json_encode(['1 bulan', '2 bulan', '3 bulan', '4 bulan', '5 bulan', '6 bulan', '> 6 bulan'])],
+            ['kode_dikti' => 'f4', 'grup' => 'Mencari Pekerjaan', 'is_wajib' => true, 'indikator' => 'Bagaimana anda mencari pekerjaan tersebut? jawaban bisa lebih dari satu.', 'tipe_jawaban' => 'checkbox', 'opsi_jawaban' => json_encode([
                 'Melalui iklan di koran/majalah, brosur.',
                 'Melamar ke perusahaan tanpa mengetahui lowongan yang ada.',
                 'Pergi ke bursa/pameran kerja.',
@@ -90,13 +87,13 @@ class KuesionerSeeder extends Seeder
                 'Melalui penempatan kerja atau magang.',
                 'Bekerja di tempat yang sama dengan tempat kerja semasa kuliah.'
             ])],
-            ['kode_dikti' => 'f6', 'kategori' => 'Mencari Pekerjaan', 'is_wajib' => true, 'pertanyaan' => 'Berapa perusahaan/instansi/institusi yang sudah anda lamar (lewat surat atau e-mail) sebelum anda memeroleh pekerjaan pertama?', 'tipe_jawaban' => 'number', 'opsi_jawaban' => null],
-            ['kode_dikti' => 'f7', 'kategori' => 'Mencari Pekerjaan', 'is_wajib' => true, 'pertanyaan' => 'Berapa banyak perusahaan/instansi/institusi yang merespons lamaran anda?', 'tipe_jawaban' => 'number', 'opsi_jawaban' => null],
-            ['kode_dikti' => 'f7a', 'kategori' => 'Mencari Pekerjaan', 'is_wajib' => true, 'pertanyaan' => 'Berapa banyak perusahaan/instansi/institusi yang mengundang anda untuk wawancara?', 'tipe_jawaban' => 'number', 'opsi_jawaban' => null],
-            ['kode_dikti' => 'f1001', 'kategori' => 'Mencari Pekerjaan', 'is_wajib' => true, 'pertanyaan' => 'Apakah anda aktif mencari pekerjaan dalam 4 Minggu terakhir?', 'tipe_jawaban' => 'radio_lainnya', 'opsi_jawaban' => json_encode(['Tidak', 'Tidak, tapi saya sedang menunggu hasil lamaran kerja', 'Ya, saya akan mulai bekerja dalam 2 minggu ke depan', 'Ya, tapi saya belum pasti akan bekerja dalam 2 minggu ke depan'])],
+            ['kode_dikti' => 'f6', 'grup' => 'Mencari Pekerjaan', 'is_wajib' => true, 'indikator' => 'Berapa perusahaan/instansi/institusi yang sudah anda lamar (lewat surat atau e-mail) sebelum anda memeroleh pekerjaan pertama?', 'tipe_jawaban' => 'number', 'opsi_jawaban' => null],
+            ['kode_dikti' => 'f7', 'grup' => 'Mencari Pekerjaan', 'is_wajib' => true, 'indikator' => 'Berapa banyak perusahaan/instansi/institusi yang merespons lamaran anda?', 'tipe_jawaban' => 'number', 'opsi_jawaban' => null],
+            ['kode_dikti' => 'f7a', 'grup' => 'Mencari Pekerjaan', 'is_wajib' => true, 'indikator' => 'Berapa banyak perusahaan/instansi/institusi yang mengundang anda untuk wawancara?', 'tipe_jawaban' => 'number', 'opsi_jawaban' => null],
+            ['kode_dikti' => 'f1001', 'grup' => 'Mencari Pekerjaan', 'is_wajib' => true, 'indikator' => 'Apakah anda aktif mencari pekerjaan dalam 4 Minggu terakhir?', 'tipe_jawaban' => 'radio_lainnya', 'opsi_jawaban' => json_encode(['Tidak', 'Tidak, tapi saya sedang menunggu hasil lamaran kerja', 'Ya, saya akan mulai bekerja dalam 2 minggu ke depan', 'Ya, tapi saya belum pasti akan bekerja dalam 2 minggu ke depan'])],
 
             // ================= SECTION 9: KETIDAKSESUAIAN PEKERJAAN =================
-            ['kode_dikti' => 'f16', 'kategori' => 'Ketidaksesuaian Pekerjaan', 'is_wajib' => true, 'pertanyaan' => 'Jika menurut anda pekerjaan anda saat ini tidak sesuai dengan pendidikan anda, mengapa mengambilnya? (Jawaban bisa lebih dari satu)', 'tipe_jawaban' => 'checkbox_lainnya', 'opsi_jawaban' => json_encode([
+            ['kode_dikti' => 'f16', 'grup' => 'Ketidaksesuaian Pekerjaan', 'is_wajib' => true, 'indikator' => 'Jika menurut anda pekerjaan anda saat ini tidak sesuai dengan pendidikan anda, mengapa mengambilnya? (Jawaban bisa lebih dari satu)', 'tipe_jawaban' => 'checkbox_lainnya', 'opsi_jawaban' => json_encode([
                 'Pertanyaan tidak sesuai; pekerjaan saya sekarang sudah sesuai dengan pendidikan saya.',
                 'Saya belum mendapatkan pekerjaan yang lebih sesuai.',
                 'Di pekerjaan ini saya memeroleh prospek karir yang baik.',
@@ -112,11 +109,28 @@ class KuesionerSeeder extends Seeder
             ])],
         ];
 
+        // Logika untuk memberikan nomor urut pada 'grup' dan 'indikator' secara otomatis
+        $currentGrup = '';
+        $grupUrut = 0;
+        $indikatorUrut = 1;
+
         foreach ($kuesioner as $data) {
+            // Jika nama grup berganti, nomor urut grup ditambah 1, dan nomor indikator di-reset jadi 1
+            if ($currentGrup !== $data['grup']) {
+                $currentGrup = $data['grup'];
+                $grupUrut++;
+                $indikatorUrut = 1;
+            }
+
             DB::table('kuesioner_alumni')->insert(array_merge($data, [
+                'grup_urut' => $grupUrut,
+                'indikator_urut' => $indikatorUrut,
                 'created_at' => now(),
                 'updated_at' => now()
             ]));
+
+            // Naikkan nomor urut indikator untuk pertanyaan berikutnya
+            $indikatorUrut++;
         }
     }
 }

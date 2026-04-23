@@ -4,6 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Penilaian Lulusan - Tracer Study ARS</title>
+    <link rel="icon" type="image/x-icon" href="{{ asset('images/logo-ars-university.webp') }}">
     @vite(['resources/css/app.css', 'resources/js/app.js'])
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>
@@ -17,11 +18,11 @@
                     <div class="bg-white p-1 rounded flex items-center justify-center h-8 w-8 sm:h-10 sm:w-10 overflow-hidden">
                         <img src="{{ asset('images/logo-ars-university.webp') }}" alt="Logo ARS" class="w-full h-full object-contain">
                     </div>
-                    <span class="font-bold tracking-widest uppercase text-ars-yellow text-sm sm:text-base">Kuesioner Mitra</span>
+                    <span class="font-bold tracking-widest uppercase text-ars-yellow text-sm sm:text-base">Kuesioner Pengguna (Mitra)</span>
                 </div>
                 <div class="flex items-center gap-4">
                     <span class="text-sm font-medium text-gray-300 hidden sm:block">Menilai: {{ $alumni->nama }}</span>
-                    <a href="{{ route('mitra.index') }}" class="text-sm font-bold text-red-400 hover:text-red-200 transition-colors flex items-center gap-1 bg-red-900/30 px-3 py-1.5 rounded-lg">
+                    <a href="{{ route('pengguna.index') }}" class="text-sm font-bold text-red-400 hover:text-red-200 transition-colors flex items-center gap-1 bg-red-900/30 px-3 py-1.5 rounded-lg">
                         Batal
                     </a>
                 </div>
@@ -29,7 +30,7 @@
         </div>
     </nav>
 
-    <main class="flex-grow max-w-4xl mx-auto py-8 px-4 sm:px-6 w-full">
+ <main class="flex-grow max-w-4xl mx-auto py-8 px-4 sm:px-6 w-full">
         
         <!-- Header Info Alumni -->
         <div class="bg-gradient-to-r from-blue-50 to-white border border-blue-100 rounded-2xl p-6 text-center mb-8 shadow-sm relative overflow-hidden">
@@ -37,7 +38,7 @@
             <p class="text-xs sm:text-sm text-blue-600 font-bold uppercase tracking-wider mb-2 relative z-10">Lembar Penilaian Kinerja Lulusan:</p>
             <h1 class="text-2xl sm:text-3xl font-black text-ars-navy relative z-10">{{ $alumni->nama }}</h1>
             <div class="flex items-center justify-center gap-2 mt-2 text-sm text-gray-600 relative z-10">
-                <span class="bg-blue-100 text-blue-800 px-2.5 py-0.5 rounded-full font-semibold">NIM: {{ $alumni->nim }}</span>
+                <span class="font-semibold">NIM: {{ $alumni->nim }}</span>
                 <span>•</span>
                 <span>Lulusan {{ $alumni->lulus_tahun }}</span>
                 <span>•</span>
@@ -51,7 +52,7 @@
                 $total_steps = count($kuesioner) + 1; // +1 untuk step identitas
             @endphp
 
-            <!-- Progress Bar Garis (Kembali ke desain yang lebih bersih) -->
+            <!-- Progress Bar Garis -->
             <div class="bg-gray-100 h-2.5 w-full">
                 <div id="progressBar" class="bg-ars-yellow h-2.5 transition-all duration-500 w-0"></div>
             </div>
@@ -63,7 +64,7 @@
             </div>
 
             <!-- Form Utama -->
-            <form action="{{ route('mitra.store') }}" method="POST" id="kuesionerForm" class="px-6 sm:px-10 pb-10 pt-6">
+            <form action="{{ route('pengguna.store') }}" method="POST" id="kuesionerForm" class="px-6 sm:px-10 pb-10 pt-6">
                 @csrf
                 <input type="hidden" name="nim" value="{{ $alumni->nim }}">
 
@@ -74,17 +75,14 @@
                     </div>
                     
                     <div class="grid grid-cols-1 sm:grid-cols-2 gap-6 sm:gap-8">
-                        <div>
+                        <!-- REVISI: name disesuaikan dengan Controller (nama, perusahaan, jabatan, dll) -->
+                        <div class="sm:col-span-2">
                             <label class="block text-sm font-bold text-gray-700 mb-2">Nama Perusahaan/Instansi <span class="text-red-500">*</span></label>
-                            <input type="text" name="nama_perusahaan" class="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl focus:bg-white focus:ring-2 focus:ring-ars-navy outline-none transition-all" required>
-                        </div>
-                        <div>
-                            <label class="block text-sm font-bold text-gray-700 mb-2">Sektor Usaha/Instansi</label>
-                            <input type="text" name="sektor_perusahaan" placeholder="Contoh: Teknologi, Pendidikan, Manufaktur..." class="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl focus:bg-white focus:ring-2 focus:ring-ars-navy outline-none transition-all">
+                            <input type="text" name="perusahaan" class="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl focus:bg-white focus:ring-2 focus:ring-ars-navy outline-none transition-all" required>
                         </div>
                         <div class="sm:col-span-2">
-                            <label class="block text-sm font-bold text-gray-700 mb-2">Alamat Lengkap Perusahaan</label>
-                            <textarea name="alamat_perusahaan" rows="2" class="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl focus:bg-white focus:ring-2 focus:ring-ars-navy outline-none transition-all"></textarea>
+                            <label class="block text-sm font-bold text-gray-700 mb-2">Tingkat Perusahaan</label>
+                            <input type="text" name="tingkat" placeholder="Contoh: Lokal, Nasional, Multinasional..." class="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl focus:bg-white focus:ring-2 focus:ring-ars-navy outline-none transition-all">
                         </div>
                         
                         <div class="sm:col-span-2 border-t border-gray-100 pt-6 mt-2 relative">
@@ -93,26 +91,27 @@
                         
                         <div>
                             <label class="block text-sm font-bold text-gray-700 mb-2">Nama Lengkap Anda <span class="text-red-500">*</span></label>
-                            <input type="text" name="nama_penilai" class="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl focus:bg-white focus:ring-2 focus:ring-ars-navy outline-none transition-all" required>
+                            <input type="text" name="nama" class="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl focus:bg-white focus:ring-2 focus:ring-ars-navy outline-none transition-all" required>
                         </div>
                         <div>
                             <label class="block text-sm font-bold text-gray-700 mb-2">Jabatan Saat Ini <span class="text-red-500">*</span></label>
-                            <input type="text" name="jabatan_penilai" placeholder="Contoh: HR Manager, SPV, Direktur..." class="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl focus:bg-white focus:ring-2 focus:ring-ars-navy outline-none transition-all" required>
+                            <input type="text" name="jabatan" placeholder="Contoh: HR Manager, SPV, Direktur..." class="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl focus:bg-white focus:ring-2 focus:ring-ars-navy outline-none transition-all" required>
                         </div>
                         <div class="sm:col-span-2">
                             <label class="block text-sm font-bold text-gray-700 mb-2">Email / No. WhatsApp (Opsional)</label>
-                            <input type="text" name="kontak_penilai" placeholder="Untuk keperluan validasi jika diperlukan..." class="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl focus:bg-white focus:ring-2 focus:ring-ars-navy outline-none transition-all">
+                            <input type="text" name="no_hp" placeholder="Untuk keperluan validasi jika diperlukan..." class="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl focus:bg-white focus:ring-2 focus:ring-ars-navy outline-none transition-all">
                         </div>
                     </div>
                 </div>
 
                 <!-- ================== STEP 1 - N: KUESIONER HRD ================== -->
                 @php $step_index = 1; @endphp
-                @foreach ($kuesioner as $nama_kategori => $daftar_pertanyaan)
-                    <div class="step-content" data-step="{{ $step_index }}" data-title="{{ preg_replace('/^[A-Z]\.\s*/', '', $nama_kategori) }}">
+                {{-- REVISI: $daftar_pertanyaan jadi $daftar_indikator --}}
+                @foreach ($kuesioner as $nama_grup => $daftar_indikator)
+                    <div class="step-content hidden" data-step="{{ $step_index }}" data-title="{{ preg_replace('/^[A-Z]\.\s*/', '', $nama_grup) }}">
                         
                         <!-- Box Panduan Skala -->
-                        @if ($nama_kategori != 'H. Saran & Kritik')
+                        @if ($nama_grup != 'H. Saran & Kritik')
                             <div class="mb-8 flex justify-center">
                                 <div class="inline-flex bg-white border border-gray-200 rounded-full p-1.5 shadow-sm text-xs sm:text-sm font-medium text-gray-600">
                                     <span class="px-3 py-1 rounded-full text-red-600">1: Kurang</span>
@@ -124,11 +123,12 @@
                         @endif
 
                         <div class="space-y-6">
-                            @foreach ($daftar_pertanyaan as $tanya)
+                            @foreach ($daftar_indikator as $tanya)
                                 <div class="bg-white p-5 sm:p-6 rounded-2xl border border-gray-100 shadow-sm hover:shadow-md transition-all hover:border-blue-100">
                                     <div class="mb-5">
                                         <label class="text-base font-bold text-gray-800 leading-relaxed block">
-                                            {{ $tanya->pertanyaan }} <span class="text-red-500">*</span>
+                                            {{-- REVISI: $tanya->pertanyaan jadi $tanya->indikator --}}
+                                            {{ $tanya->indikator }} <span class="text-red-500">*</span>
                                         </label>
                                     </div>
 
@@ -138,7 +138,8 @@
                                             <div class="grid grid-cols-4 gap-2 sm:gap-4 max-w-lg">
                                                 @for ($i = 1; $i <= 4; $i++)
                                                     <label class="radio-label cursor-pointer text-center relative group">
-                                                        <input type="radio" name="jawaban[{{ $tanya->id }}]" value="{{ $i }}" class="absolute opacity-0 w-0 h-0" required>
+                                                        {{-- REVISI: id jadi kuesioner_pengguna_no --}}
+                                                        <input type="radio" name="jawaban[{{ $tanya->kuesioner_pengguna_no }}]" value="{{ $i }}" class="absolute opacity-0 w-0 h-0" required>
                                                         <div class="border-2 border-gray-200 rounded-xl py-3 px-1 transition-all duration-200 bg-gray-50 text-gray-600 group-hover:border-ars-navy group-hover:text-ars-navy flex flex-col items-center justify-center gap-1">
                                                             <span class="text-lg font-black">{{ $i }}</span>
                                                             <span class="text-[10px] uppercase font-bold tracking-wider opacity-70 block hidden sm:block">
@@ -151,7 +152,8 @@
 
                                         {{-- JIKA TIPE JAWABAN ADALAH SARAN (TEXTAREA) --}}
                                         @elseif ($tanya->tipe_jawaban == 'textarea')
-                                            <textarea name="jawaban[{{ $tanya->id }}]" rows="5" class="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl focus:bg-white focus:ring-2 focus:ring-ars-navy outline-none transition-all" placeholder="Tuliskan saran konstruktif Anda di sini..." required></textarea>
+                                            {{-- REVISI: id jadi kuesioner_pengguna_no --}}
+                                            <textarea name="jawaban[{{ $tanya->kuesioner_pengguna_no }}]" rows="5" class="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl focus:bg-white focus:ring-2 focus:ring-ars-navy outline-none transition-all" placeholder="Tuliskan saran konstruktif Anda di sini..." required></textarea>
                                         @endif
                                     </div>
                                 </div>
@@ -183,7 +185,7 @@
             </form>
         </div>
 
-        <!-- Steps Info Bawah (Sesuai Permintaan) -->
+        <!-- Steps Info Bawah -->
         <div class="mt-10 grid grid-cols-1 sm:grid-cols-3 gap-6 text-center px-4">
             <div>
                 <!-- Verifikasi selalu hijau karena sudah melewati form depan -->
@@ -199,8 +201,7 @@
                 <h4 id="macro3Text" class="text-sm font-bold text-gray-400 transition-all">Isi Penilaian</h4>
             </div>
         </div>
-
-    </main>
+</main>
 
     <footer class="bg-white border-t border-gray-200 py-6 text-center mt-auto">
         <p class="text-xs text-gray-400 font-bold tracking-widest uppercase">&copy; {{ date('Y') }} Tracer Study ARS University.</p>

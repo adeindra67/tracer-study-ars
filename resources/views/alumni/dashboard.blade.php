@@ -4,13 +4,9 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Tracer Study Alumni- ARS University</title>
+    <link rel="icon" type="image/x-icon" href="{{ asset('images/logo-ars-university.webp') }}">
     @vite(['resources/css/app.css', 'resources/js/app.js'])
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-    <style>
-        .step-content { display: none; animation: fadeIn 0.5s; }
-        .step-content.active { display: block; }
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
-    </style>
 </head>
 <body class="bg-gray-50 font-sans antialiased text-gray-800">
 
@@ -21,7 +17,7 @@
                     <div class="bg-white p-1 rounded flex items-center justify-center h-8 w-8 sm:h-10 sm:w-10 overflow-hidden">
                         <img src="{{ asset('images/logo-ars-university.webp') }}" alt="Logo ARS" class="w-full h-full object-contain">
                     </div>
-                    <span class="font-bold tracking-widest uppercase text-ars-yellow text-sm sm:text-base">KUESIONER</span>
+                    <span class="font-bold tracking-widest uppercase text-ars-yellow text-sm sm:text-base">KUESIONER ALUMNI</span>
                 </div>
                 <div class="flex items-center gap-4">
                     <span class="text-sm text-gray-300 hidden sm:block">NIM: {{ $alumni->nim }}</span>
@@ -88,6 +84,10 @@
                             </div>
                         </div>
 
+                        <!-- REVISI: Tambah input hidden untuk bidang_kerja dan tingkat (Sesuai Struktur Tabel) -->
+                        <input type="hidden" name="bidang_kerja" value="{{ $alumni->bidang_kerja ?? '' }}">
+                        <input type="hidden" name="tingkat" value="{{ $alumni->tingkat ?? '' }}">
+
                         <div class="border-t border-gray-100 pt-6">
                             <h3 class="text-lg font-bold text-ars-navy mb-4">Informasi Pekerjaan Saat Ini</h3>
                             <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
@@ -110,14 +110,16 @@
 
                 <!-- ================== STEP 1 - 9: KUESIONER ================== -->
                 @php $step_index = 1; @endphp
-                @foreach ($kuesioner as $nama_kategori => $daftar_pertanyaan)
-                    <div class="step-content" data-step="{{ $step_index }}" data-title="{{ $nama_kategori }}">
+                {{-- REVISI: $nama_kategori diubah jadi $nama_grup, $daftar_pertanyaan jadi $daftar_indikator --}}
+                @foreach ($kuesioner as $nama_grup => $daftar_indikator)
+                    <div class="step-content hidden" data-step="{{ $step_index }}" data-title="{{ $nama_grup }}">
                         <div class="space-y-8 sm:space-y-10">
-                            @foreach ($daftar_pertanyaan as $tanya)
+                            @foreach ($daftar_indikator as $tanya)
                                 <div class="bg-gray-50/50 p-6 sm:p-8 rounded-2xl border border-gray-200 shadow-sm">
                                     <div class="mb-4">
                                         <label class="text-lg font-bold text-gray-900 leading-snug block">
-                                            {{ $tanya->pertanyaan }}
+                                            {{-- REVISI: $tanya->pertanyaan diubah jadi $tanya->indikator --}}
+                                            {{ $tanya->indikator }}
                                             @if($tanya->is_wajib) <span class="text-red-500">*</span> @endif
                                         </label>
                                         @if(!$tanya->is_wajib) <span class="text-sm text-gray-400 block mt-1">(Boleh dikosongkan)</span> @endif
@@ -134,7 +136,7 @@
                                         {{-- 2. RADIO BUTTON --}}
                                         @elseif ($tanya->tipe_jawaban == 'radio')
                                             @php $opsi = json_decode($tanya->opsi_jawaban, true); @endphp
-                                            @if ($nama_kategori == 'Metode Pembelajaran')
+                                            @if ($nama_grup == 'Metode Pembelajaran')
                                                 @php
                                                     // Pastikan opsi diurutkan dari yang terkecil ke terbesar (kiri ke kanan)
                                                     if(isset($opsi[0]) && $opsi[0] == 'Sangat Besar') {
@@ -244,6 +246,7 @@
         
         <p class="text-center text-sm text-gray-400 mt-10 mb-6">&copy; {{ date('Y') }} ARS University. All Rights Reserved.</p>
     </main>
+
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             const steps = document.querySelectorAll('.step-content');

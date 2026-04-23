@@ -2,30 +2,30 @@
 
 namespace App\Models;
 
-use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Foundation\Auth\User as Authenticatable; // Karena dipakai login
+use Illuminate\Notifications\Notifiable;
 
 class Alumni extends Authenticatable
 {
-    use HasFactory;
+    use HasFactory, Notifiable;
 
     protected $table = 'alumni';
-    protected $primaryKey = 'alumni_no';
+    protected $primaryKey = 'alumni_no'; // Override Primary Key default Laravel
 
-    // Kolom apa saja yang boleh diisi (Mass Assignment)
     protected $fillable = [
         'nim', 'nama', 'tanggal_lahir', 'prodi', 'lulus_tahun', 
-        'no_hp', 'email', 'pekerjaan', 'bidang_kerja', 
-        'perusahaan', 'tingkat', 'jabatan'
+        'email', 'no_hp', 'nik', 'pekerjaan_saat_ini'
     ];
 
-    // Karena kita tidak pakai password, kita beri tahu Laravel
-    public function getAuthPassword()
+    // Relasi: Satu Alumni bisa dinilai oleh banyak HRD (Pengguna)
+    public function pengguna()
     {
-        return null;
+        return $this->hasMany(Pengguna::class, 'alumni_no', 'alumni_no');
     }
 
-    public function tracers()
+    // Relasi: Satu Alumni bisa punya banyak riwayat pengisian kuesioner
+    public function tracer()
     {
         return $this->hasMany(AlumniTracer::class, 'alumni_no', 'alumni_no');
     }

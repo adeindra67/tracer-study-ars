@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Selesai - Kuesioner Mitra ARS</title>
+    <title>Selesai - Kuesioner Pengguna - Tracer Study ARS</title>
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
 <body class="bg-gray-50 font-sans antialiased flex items-center justify-center min-h-screen relative overflow-hidden">

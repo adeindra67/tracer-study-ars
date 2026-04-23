@@ -4,6 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Tracer Study Alumni Selesai</title>
+    <link rel="icon" type="image/x-icon" href="{{ asset('images/logo-ars-university.webp') }}">
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
 <body class="bg-gray-50 font-sans antialiased min-h-screen flex flex-col">
