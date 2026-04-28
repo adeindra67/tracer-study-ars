@@ -53,14 +53,14 @@
                     <!-- List Data -->
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6">
                         @foreach($alumni_list as $data)
-                            <div class="group bg-white border border-gray-200 rounded-2xl p-6 hover:border-ars-navy/30 hover:shadow-xl hover:shadow-ars-navy/5 transition-all duration-300 transform {{ $data->sudah_dinilai ? 'opacity-70' : 'hover:-translate-y-1' }} flex flex-col justify-between h-full">
+                            <div class="group bg-white border border-gray-200 rounded-2xl p-6 hover:border-ars-navy/30 hover:shadow-xl hover:shadow-ars-navy/5 transition-all duration-300 transform {{ $data->is_locked ? 'opacity-70' : 'hover:-translate-y-1' }} flex flex-col justify-between h-full">
                                 
                                 <div class="flex items-start gap-4 mb-6">
-                                    <div class="h-14 w-14 {{ $data->sudah_dinilai ? 'bg-gray-100 text-gray-400' : 'bg-gradient-to-br from-blue-100 to-blue-50 text-ars-navy border border-blue-100/50 group-hover:scale-110' }} rounded-2xl flex items-center justify-center font-black text-2xl flex-shrink-0 shadow-sm transition-transform duration-300">
+                                    <div class="h-14 w-14 {{ $data->is_locked ? 'bg-gray-100 text-gray-400' : 'bg-gradient-to-br from-blue-100 to-blue-50 text-ars-navy border border-blue-100/50 group-hover:scale-110' }} rounded-2xl flex items-center justify-center font-black text-2xl flex-shrink-0 shadow-sm transition-transform duration-300">
                                         {{ strtoupper(substr($data->nama, 0, 1)) }}
                                     </div>
                                     <div>
-                                        <h3 class="text-lg font-bold text-gray-900 leading-tight {{ $data->sudah_dinilai ? '' : 'group-hover:text-ars-navy' }} transition-colors">{{ $data->nama }}</h3>
+                                        <h3 class="text-lg font-bold text-gray-900 leading-tight {{ $data->is_locked ? '' : 'group-hover:text-ars-navy' }} transition-colors">{{ $data->nama }}</h3>
                                         <div class="flex flex-wrap gap-2 mt-2">
                                             <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-semibold bg-gray-100 text-gray-600">
                                                 Lulusan {{ $data->lulus_tahun ?? '-' }}
@@ -73,12 +73,13 @@
                                 </div>
                                 
                                 <div class="pt-4 border-t border-gray-50 mt-auto">
-                                    @if($data->sudah_dinilai)
-                                        <div class="w-full bg-gray-50 border-2 border-gray-100 text-gray-400 px-6 py-3 rounded-xl font-bold flex items-center justify-center gap-2 cursor-not-allowed">
+                                    <!-- LOGIKA TAMPILAN LOCK (HANYA UNTUK FRESH GRADUATE) -->
+                                    @if($data->is_locked)
+                                        <div class="w-full bg-gray-50 border-2 border-gray-100 text-gray-400 px-6 py-3 rounded-xl font-bold flex items-center justify-center gap-2 cursor-not-allowed text-sm">
                                             <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
-                                                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
+                                                <path fill-rule="evenodd" d="M5 9V7a5 5 0 0110 0v2a2 2 0 012 2v5a2 2 0 01-2 2H5a2 2 0 01-2-2v-5a2 2 0 012-2zm8-2v2H7V7a3 3 0 016 0z" clip-rule="evenodd" />
                                             </svg>
-                                            Sudah Dievaluasi
+                                            Lulusan Baru (Belum Bisa Dievaluasi)
                                         </div>
                                     @else
                                         <a href="{{ route('pengguna.verifikasi', $data->alumni_no) }}" class="w-full bg-white border-2 border-gray-100 text-gray-700 px-6 py-3 rounded-xl font-bold hover:bg-ars-navy hover:text-white hover:border-ars-navy transition-colors duration-300 flex items-center justify-center gap-2 group/btn">

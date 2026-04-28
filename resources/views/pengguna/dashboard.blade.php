@@ -6,7 +6,24 @@
     <title>Penilaian Lulusan - Tracer Study ARS</title>
     <link rel="icon" type="image/x-icon" href="{{ asset('images/logo-ars-university.webp') }}">
     @vite(['resources/css/app.css', 'resources/js/app.js'])
+    <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    
+    <!-- FITUR BARU: Library Telepon Internasional (CSS) -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/intl-tel-input@18.2.1/build/css/intlTelInput.css">
+    
+    <style>
+        .step-content { display: none; }
+        .step-content.active { display: block; animation: fadeIn 0.4s ease-in-out; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+        
+        /* Penyesuaian agar dropdown bendera negara rapi dengan Tailwind */
+        .iti { width: 100%; display: block; }
+        .iti__flag { background-image: url("https://cdn.jsdelivr.net/npm/intl-tel-input@18.2.1/build/img/flags.png"); }
+        @media (min-resolution: 2x) {
+            .iti__flag { background-image: url("https://cdn.jsdelivr.net/npm/intl-tel-input@18.2.1/build/img/flags@2x.png"); }
+        }
+    </style>
 </head>
 <body class="bg-gray-50 font-sans antialiased text-gray-800 min-h-screen flex flex-col">
 
@@ -22,7 +39,7 @@
                 </div>
                 <div class="flex items-center gap-4">
                     <span class="text-sm font-medium text-gray-300 hidden sm:block">Menilai: {{ $alumni->nama }}</span>
-                    <a href="{{ route('pengguna.index') }}" class="text-sm font-bold text-red-400 hover:text-red-200 transition-colors flex items-center gap-1 bg-red-900/30 px-3 py-1.5 rounded-lg">
+                    <a href="{{ route('pengguna.index') }}" onclick="confirmCancel(event, this.href)" class="text-sm font-bold text-red-400 hover:text-red-200 transition-colors flex items-center gap-1 bg-red-900/30 px-3 py-1.5 rounded-lg">
                         Batal
                     </a>
                 </div>
@@ -30,7 +47,7 @@
         </div>
     </nav>
 
- <main class="flex-grow max-w-4xl mx-auto py-8 px-4 sm:px-6 w-full">
+    <main class="flex-grow max-w-4xl mx-auto py-8 px-4 sm:px-6 w-full">
         
         <!-- Header Info Alumni -->
         <div class="bg-gradient-to-r from-blue-50 to-white border border-blue-100 rounded-2xl p-6 text-center mb-8 shadow-sm relative overflow-hidden">
@@ -75,18 +92,36 @@
                     </div>
                     
                     <div class="grid grid-cols-1 sm:grid-cols-2 gap-6 sm:gap-8">
-                        <!-- REVISI: name disesuaikan dengan Controller (nama, perusahaan, jabatan, dll) -->
+                        
+                        <!-- IDENTITAS PERUSAHAAN (SESUAI DOKUMEN) -->
                         <div class="sm:col-span-2">
-                            <label class="block text-sm font-bold text-gray-700 mb-2">Nama Perusahaan/Instansi <span class="text-red-500">*</span></label>
+                            <label class="block text-sm font-bold text-gray-700 mb-2">1. Nama Perusahaan / Instansi <span class="text-red-500">*</span></label>
                             <input type="text" name="perusahaan" class="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl focus:bg-white focus:ring-2 focus:ring-ars-navy outline-none transition-all" required>
                         </div>
+                        
                         <div class="sm:col-span-2">
-                            <label class="block text-sm font-bold text-gray-700 mb-2">Tingkat Perusahaan</label>
-                            <input type="text" name="tingkat" placeholder="Contoh: Lokal, Nasional, Multinasional..." class="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl focus:bg-white focus:ring-2 focus:ring-ars-navy outline-none transition-all">
+                            <label class="block text-sm font-bold text-gray-700 mb-2">2. Alamat Perusahaan <span class="text-red-500">*</span></label>
+                            <textarea name="alamat_perusahaan" rows="2" class="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl focus:bg-white focus:ring-2 focus:ring-ars-navy outline-none transition-all" required></textarea>
+                        </div>
+
+                        <div>
+                            <label class="block text-sm font-bold text-gray-700 mb-2">3. Sektor Perusahaan / Instansi <span class="text-red-500">*</span></label>
+                            <input type="text" name="sektor_perusahaan" placeholder="Contoh: Perbankan, IT, Pendidikan..." class="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl focus:bg-white focus:ring-2 focus:ring-ars-navy outline-none transition-all" required>
                         </div>
                         
+                        <div>
+                            <label class="block text-sm font-bold text-gray-700 mb-2">Tingkat Perusahaan <span class="text-red-500">*</span></label>
+                            <select name="tingkat" class="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl focus:bg-white focus:ring-2 focus:ring-ars-navy outline-none transition-all" required>
+                                <option value="">-- Pilih Tingkat --</option>
+                                <option value="Lokal">Lokal / Tidak Berbadan Hukum</option>
+                                <option value="Nasional">Nasional / Berbadan Hukum</option>
+                                <option value="Multinasional">Multinasional / Internasional</option>
+                            </select>
+                        </div>
+                        
+                        <!-- DATA DIRI PENILAI -->
                         <div class="sm:col-span-2 border-t border-gray-100 pt-6 mt-2 relative">
-                            <h3 class="inline-block bg-white pr-4 text-lg font-black text-ars-navy relative -top-3">Data Diri Penilai (Atasan/HRD)</h3>
+                            <h3 class="inline-block bg-white pr-4 text-lg font-black text-ars-navy relative -top-3">Data Diri Penilai (Atasan / HRD)</h3>
                         </div>
                         
                         <div>
@@ -97,16 +132,28 @@
                             <label class="block text-sm font-bold text-gray-700 mb-2">Jabatan Saat Ini <span class="text-red-500">*</span></label>
                             <input type="text" name="jabatan" placeholder="Contoh: HR Manager, SPV, Direktur..." class="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl focus:bg-white focus:ring-2 focus:ring-ars-navy outline-none transition-all" required>
                         </div>
-                        <div class="sm:col-span-2">
-                            <label class="block text-sm font-bold text-gray-700 mb-2">Email / No. WhatsApp (Opsional)</label>
-                            <input type="text" name="no_hp" placeholder="Untuk keperluan validasi jika diperlukan..." class="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl focus:bg-white focus:ring-2 focus:ring-ars-navy outline-none transition-all">
+
+                        <!-- PEMISAHAN EMAIL & NO HP DENGAN BENDERA NEGARA -->
+                        <div>
+                            <label class="block text-sm font-bold text-gray-700 mb-2">Alamat Email <span class="text-red-500">*</span></label>
+                            <input type="email" name="email" placeholder="email@perusahaan.com" class="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl focus:bg-white focus:ring-2 focus:ring-ars-navy outline-none transition-all" required>
+                        </div>
+                        <div>
+                            <label class="block text-sm font-bold text-gray-700 mb-2">Nomor Telepon / WhatsApp <span class="text-red-500">*</span></label>
+                            <div class="relative w-full">
+                                <!-- Input Visual untuk User (Diformat Oleh Plugin) -->
+                                <input type="tel" id="display_phone" class="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl focus:bg-white focus:ring-2 focus:ring-ars-navy outline-none transition-all" required>
+                                
+                                <!-- Input Hidden untuk dikirim ke Database (Tanpa Spasi, ada Kode Negara) -->
+                                <input type="hidden" name="no_hp" id="real_phone">
+                            </div>
+                            <span class="text-xs text-gray-400 mt-1 block">Pilih bendera. Format akan menyesuaikan secara otomatis.</span>
                         </div>
                     </div>
                 </div>
 
                 <!-- ================== STEP 1 - N: KUESIONER HRD ================== -->
                 @php $step_index = 1; @endphp
-                {{-- REVISI: $daftar_pertanyaan jadi $daftar_indikator --}}
                 @foreach ($kuesioner as $nama_grup => $daftar_indikator)
                     <div class="step-content hidden" data-step="{{ $step_index }}" data-title="{{ preg_replace('/^[A-Z]\.\s*/', '', $nama_grup) }}">
                         
@@ -127,18 +174,15 @@
                                 <div class="bg-white p-5 sm:p-6 rounded-2xl border border-gray-100 shadow-sm hover:shadow-md transition-all hover:border-blue-100">
                                     <div class="mb-5">
                                         <label class="text-base font-bold text-gray-800 leading-relaxed block">
-                                            {{-- REVISI: $tanya->pertanyaan jadi $tanya->indikator --}}
                                             {{ $tanya->indikator }} <span class="text-red-500">*</span>
                                         </label>
                                     </div>
 
                                     <div>
-                                        {{-- JIKA TIPE JAWABAN ADALAH SKALA 1-4 --}}
                                         @if ($tanya->tipe_jawaban == 'scale4')
                                             <div class="grid grid-cols-4 gap-2 sm:gap-4 max-w-lg">
                                                 @for ($i = 1; $i <= 4; $i++)
                                                     <label class="radio-label cursor-pointer text-center relative group">
-                                                        {{-- REVISI: id jadi kuesioner_pengguna_no --}}
                                                         <input type="radio" name="jawaban[{{ $tanya->kuesioner_pengguna_no }}]" value="{{ $i }}" class="absolute opacity-0 w-0 h-0" required>
                                                         <div class="border-2 border-gray-200 rounded-xl py-3 px-1 transition-all duration-200 bg-gray-50 text-gray-600 group-hover:border-ars-navy group-hover:text-ars-navy flex flex-col items-center justify-center gap-1">
                                                             <span class="text-lg font-black">{{ $i }}</span>
@@ -150,9 +194,7 @@
                                                 @endfor
                                             </div>
 
-                                        {{-- JIKA TIPE JAWABAN ADALAH SARAN (TEXTAREA) --}}
                                         @elseif ($tanya->tipe_jawaban == 'textarea')
-                                            {{-- REVISI: id jadi kuesioner_pengguna_no --}}
                                             <textarea name="jawaban[{{ $tanya->kuesioner_pengguna_no }}]" rows="5" class="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl focus:bg-white focus:ring-2 focus:ring-ars-navy outline-none transition-all" placeholder="Tuliskan saran konstruktif Anda di sini..." required></textarea>
                                         @endif
                                     </div>
@@ -188,7 +230,6 @@
         <!-- Steps Info Bawah -->
         <div class="mt-10 grid grid-cols-1 sm:grid-cols-3 gap-6 text-center px-4">
             <div>
-                <!-- Verifikasi selalu hijau karena sudah melewati form depan -->
                 <div class="mx-auto w-10 h-10 bg-green-500 text-white font-bold rounded-full flex items-center justify-center shadow-sm mb-3">✓</div>
                 <h4 class="text-sm font-bold text-green-600">Verifikasi</h4>
             </div>
@@ -201,19 +242,109 @@
                 <h4 id="macro3Text" class="text-sm font-bold text-gray-400 transition-all">Isi Penilaian</h4>
             </div>
         </div>
-</main>
+    </main>
 
     <footer class="bg-white border-t border-gray-200 py-6 text-center mt-auto">
         <p class="text-xs text-gray-400 font-bold tracking-widest uppercase">&copy; {{ date('Y') }} Tracer Study ARS University.</p>
     </footer>
 
+    <!-- FITUR BARU: Library Telepon Internasional (JS) -->
+    <script src="https://cdn.jsdelivr.net/npm/intl-tel-input@18.2.1/build/js/intlTelInput.min.js"></script>
+    
     <script>
+        // ========================================================
+        // KONFIRMASI BATAL MENGGUNAKAN SWEETALERT
+        // ========================================================
+        function confirmCancel(event, url) {
+            event.preventDefault();
+            Swal.fire({
+                title: 'Batalkan Penilaian?',
+                text: "Semua data yang sudah Anda isi di form ini akan hilang.",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#d33',
+                cancelButtonColor: '#3085d6',
+                confirmButtonText: 'Ya, Batalkan',
+                cancelButtonText: 'Kembali'
+            }).then((result) => { if (result.isConfirmed) window.location.href = url; });
+        }
+
         document.addEventListener('DOMContentLoaded', function() {
+            
+            // ========================================================
+            // INSISIALISASI INPUT TELEPON INTERNASIONAL
+            // ========================================================
+            const phoneInputField = document.querySelector("#display_phone");
+            const phoneInput = window.intlTelInput(phoneInputField, {
+                initialCountry: "id", // Default Indonesia
+                preferredCountries: ["id", "my", "sg", "us", "au"], // Negara yang muncul paling atas
+                utilsScript: "https://cdn.jsdelivr.net/npm/intl-tel-input@18.2.1/build/js/utils.js", 
+            });
+
+            // Fungsi untuk update input hidden
+            function updateRealPhoneValue() {
+                const fullNumber = phoneInput.getNumber(); // Hasil bersih: +6283812345678 
+                document.getElementById('real_phone').value = fullNumber;
+            }
+
+            // AUTO-FORMAT TAMPILAN SPASI DAN STRIP KHUSUS INDONESIA
+            phoneInputField.addEventListener('input', function(e) {
+                const countryData = phoneInput.getSelectedCountryData();
+                
+                // Hanya jalankan format kustom ini jika negaranya Indonesia
+                if (countryData.iso2 === 'id') {
+                    let val = this.value.replace(/[^\d+]/g, ''); // Bersihkan dari karakter aneh
+
+                    // Otomatis ubah 0 di awal menjadi +62
+                    if (val.startsWith('0')) {
+                        val = '+62' + val.substring(1);
+                        phoneInput.setNumber(val); // Sinkronisasikan ke plugin
+                    }
+
+                    // Format pola: +62 8xxx - xxxx - xxxx
+                    if (val.startsWith('+62')) {
+                        let numbers = val.substring(3);
+                        let formatted = '+62';
+                        
+                        if (numbers.length > 0) {
+                            formatted += ' ' + numbers.substring(0, 4);
+                            if (numbers.length > 4) formatted += ' - ' + numbers.substring(4, 8);
+                            if (numbers.length > 8) formatted += ' - ' + numbers.substring(8, 14); // Max 14 digit
+                        }
+                        this.value = formatted;
+                    }
+                }
+                
+                updateRealPhoneValue();
+            });
+
+            // MENCEGAH TOMBOL BACKSPACE NYANGKUT DI SPASI/STRIP (UX Improvement)
+            phoneInputField.addEventListener('keydown', function(e) {
+                const countryData = phoneInput.getSelectedCountryData();
+                if (countryData.iso2 === 'id' && e.key === 'Backspace') {
+                    if (this.value.endsWith(' - ')) {
+                        this.value = this.value.slice(0, -3);
+                        e.preventDefault();
+                    } else if (this.value.endsWith(' ')) {
+                        this.value = this.value.slice(0, -1);
+                        e.preventDefault();
+                    }
+                }
+            });
+
+            // Reset input saat ganti bendera negara
+            phoneInputField.addEventListener('countrychange', function() {
+                this.value = ''; 
+                updateRealPhoneValue();
+            });
+
+            // ========================================================
+            // LOGIKA NAVIGASI STANDAR (TETAP SAMA)
+            // ========================================================
             const steps = document.querySelectorAll('.step-content');
             const totalSteps = steps.length;
             const progressEl = document.getElementById('progressBar');
             
-            // Elemen Navigasi & Macro Steps
             const btnPrev = document.getElementById('btnPrev');
             const btnNext = document.getElementById('btnNext');
             const submitWrapper = document.getElementById('submitWrapper');
@@ -230,20 +361,16 @@
             let currentStep = 0;
 
             function updateUI() {
-                // Tampilkan konten aktif
                 steps.forEach((step, index) => {
                     step.classList.remove('active');
                     if (index === currentStep) step.classList.add('active');
                 });
                 
-                // Update Judul, Counter, dan Progress Bar Atas
                 titleEl.innerText = steps[currentStep].getAttribute('data-title');
                 counterEl.innerText = `Bagian ${currentStep + 1} dari ${totalSteps}`;
                 progressEl.style.width = ((currentStep + 1) / totalSteps * 100) + '%';
                 
-                // Update Warna Steps Info Bawah
                 if (currentStep === 0) {
-                    // Masih di Identitas Diri
                     macro2Icon.className = "mx-auto w-10 h-10 bg-white text-ars-navy font-bold rounded-full flex items-center justify-center shadow-sm mb-3 ring-4 ring-blue-100 transition-all";
                     macro2Icon.innerHTML = "2";
                     macro2Text.className = "text-sm font-bold text-gray-700 transition-all";
@@ -251,7 +378,6 @@
                     macro3Icon.className = "mx-auto w-10 h-10 bg-gray-200 text-gray-400 font-bold rounded-full flex items-center justify-center shadow-sm mb-3 transition-all";
                     macro3Text.className = "text-sm font-bold text-gray-400 transition-all";
                 } else {
-                    // Sudah masuk ke Penilaian
                     macro2Icon.className = "mx-auto w-10 h-10 bg-green-500 text-white font-bold rounded-full flex items-center justify-center shadow-sm mb-3 transition-all";
                     macro2Icon.innerHTML = "✓";
                     macro2Text.className = "text-sm font-bold text-green-600 transition-all";
@@ -260,7 +386,6 @@
                     macro3Text.className = "text-sm font-bold text-gray-700 transition-all";
                 }
                 
-                // Tombol Navigasi
                 currentStep === 0 ? btnPrev.classList.add('hidden') : btnPrev.classList.remove('hidden');
                 if (currentStep === totalSteps - 1) {
                     btnNext.classList.add('hidden');
@@ -270,12 +395,24 @@
                     submitWrapper.classList.add('hidden');
                 }
                 
-                // Scroll ke atas dengan halus
                 window.scrollTo({ top: 0, behavior: 'smooth' });
             }
 
             function validateCurrentStep() {
-                const currentInputs = steps[currentStep].querySelectorAll('input[required], select[required], textarea[required]');
+                const currentInputs = steps[currentStep].querySelectorAll('input[required]:not([type="hidden"]), select[required], textarea[required]');
+                
+                // Tambahan: Pastikan nomor telepon diisi valid sesuai negara
+                if(currentStep === 0) {
+                    if(!phoneInput.isValidNumber() && phoneInputField.value.trim() !== '') {
+                        phoneInputField.setCustomValidity("Nomor telepon tidak valid untuk negara tersebut.");
+                        phoneInputField.reportValidity();
+                        return false;
+                    } else {
+                        phoneInputField.setCustomValidity(""); // Clear error
+                        updateRealPhoneValue(); // Pastikan variabel aman
+                    }
+                }
+
                 for (let input of currentInputs) {
                     if (!input.checkValidity()) {
                         input.reportValidity();
@@ -295,16 +432,17 @@
                         text: "Pastikan semua penilaian sudah sesuai. Data tidak dapat diubah setelah dikirim.",
                         icon: 'question',
                         showCancelButton: true,
-                        confirmButtonColor: '#1e3a8a', // ars-navy
-                        cancelButtonColor: '#9ca3af', // gray-400
+                        confirmButtonColor: '#1e3a8a', 
+                        cancelButtonColor: '#9ca3af', 
                         confirmButtonText: 'Ya, Kirim Penilaian',
                         cancelButtonText: 'Periksa Kembali'
                     }).then((result) => { if (result.isConfirmed) form.submit(); })
                 }
             });
             
-            updateUI(); // Inisialisasi awal
+            updateUI(); 
         });
     </script>
+    
 </body>
 </html>

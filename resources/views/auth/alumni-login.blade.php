@@ -1,6 +1,6 @@
 <x-guest-layout>
     <x-slot:title>Login Alumni | Tracer Study ARS</x-slot:title>
-    <div class="min-h-screen flex flex-col md:flex-row shadow-2xl overflow-hidden rounded-2xl mx-auto max-w-6xl my-0 md:my-10 border border-gray-100">
+    <div class="flex flex-col md:flex-row shadow-2xl overflow-hidden rounded-2xl mx-auto max-w-6xl border border-gray-100">
         
 
         <div class="w-full md:w-1/2 bg-ars-navy p-10 md:p-16 flex flex-col justify-center text-white relative">
@@ -18,14 +18,14 @@
 
                 <h2 class="text-4xl font-extrabold mb-6 leading-tight">
                  <br> 
-                    <span class="text-ars-yellow text-5xl">Portal Login Alumni</span>
+                    <span class="text-ars-yellow text-5xl">Portal Alumni</span>
                 </h2>
                 
                 <p class="text-blue-100 text-lg mb-8 leading-relaxed">
-                    Silahkan login dengan memasukkan <strong> NIM </strong> dan <strong> Tanggal Lahir </strong> Anda. Kontribusi Anda sangat berarti bagi pengembangan kurikulum dan peningkatan kualitas lulusan kami di masa depan.
+                    Silakan masuk menggunakan <strong> NIM </strong> dan <strong> Tanggal Lahir </strong> Anda. 
                 </p>
 
-                <div class="bg-white/10 backdrop-blur-md border border-white/20 p-6 rounded-xl mt-10 transition hover:bg-white/20">
+                <div class="bg-white/10 backdrop-blur-md border border-white/20 p-6 rounded-xl mt-10">
                     <h4 class="text-ars-yellow font-bold mb-2 flex items-center gap-2">
                         <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
@@ -33,12 +33,20 @@
                         Butuh Bantuan?
                     </h4>
                     <p class="text-sm text-blue-50 leading-relaxed">
-                        Jika Anda lupa NIM atau mengalami kendala akses, silakan hubungi Admin Kampus melalui WhatsApp:
+                        Jika Anda lupa NIM, Anda dapat mencarinya pada direktori alumni. Jika mengalami kendala akses, silakan hubungi Admin:
                     </p>
-                    <a href="https://api.whatsapp.com/send/?phone=6281222300425&text=Hallo%20PMB%20Center...&type=phone_number&app_absent=0" target="_blank" class="mt-4 inline-flex items-center gap-2 bg-ars-yellow text-ars-navy px-4 py-2 rounded-lg font-bold text-sm hover:bg-white transition-colors duration-300">
-                        <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.588-5.946 0-6.556 5.332-11.891 11.893-11.891 3.181 0 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.481 8.403 0 6.556-5.332 11.891-11.893 11.891-2.01 0-3.98-.511-5.725-1.481l-6.268 1.702zm5.086-5.146l.303.182c1.508.897 3.248 1.371 5.035 1.371 5.462 0 9.907-4.448 9.907-9.907 0-2.64-1.03-5.123-2.9-6.99s-4.352-2.9-6.993-2.9c-5.462 0-9.91 4.448-9.91 9.907 0 2.126.559 4.196 1.617 5.974l.197.333-1.06 3.873 3.967-1.077z"/></svg>
-                        Chat Admin Kampus
-                    </a>
+                    <div class="mt-4 flex flex-wrap gap-3">
+                        <a href="https://fti.ars.ac.id/alumni" target="_blank" class="inline-flex items-center gap-2 bg-white text-ars-navy px-4 py-2 rounded-lg font-bold text-sm hover:bg-gray-100 hover:-translate-y-1 hover:shadow-lg transition-all duration-300 group">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 transform group-hover:scale-110 transition-transform duration-300" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                            </svg>
+                            Cari NIM
+                        </a>
+                        <a href="https://api.whatsapp.com/send/?phone=6281222300425" target="_blank" class="inline-flex items-center gap-2 bg-ars-yellow text-ars-navy px-4 py-2 rounded-lg font-bold text-sm hover:-translate-y-1 hover:shadow-lg transition-all duration-300 group">
+                            <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.588-5.946 0-6.556 5.332-11.891 11.893-11.891 3.181 0 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.481 8.403 0 6.556-5.332 11.891-11.893 11.891-2.01 0-3.98-.511-5.725-1.481l-6.268 1.702zm5.086-5.146l.303.182c1.508.897 3.248 1.371 5.035 1.371 5.462 0 9.907-4.448 9.907-9.907 0-2.64-1.03-5.123-2.9-6.99s-4.352-2.9-6.993-2.9c-5.462 0-9.91 4.448-9.91 9.907 0 2.126.559 4.196 1.617 5.974l.197.333-1.06 3.873 3.967-1.077z"/></svg>
+                            Chat Admin 
+                        </a>
+                    </div>
                 </div>
             </div>
         </div>
@@ -77,7 +85,7 @@
         
         <div class="absolute right-4 top-1/2 -translate-y-1/2 text-gray-300 group-focus-within:text-ars-navy transition-colors">
             <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
             </svg>
         </div>
     </div>
@@ -94,7 +102,7 @@
                required 
                inputmode="numeric"
                class="w-full px-5 py-4 border border-gray-200 rounded-xl focus:ring-4 focus:ring-ars-navy/5 focus:border-ars-navy outline-none transition-all duration-300 text-ars-gray shadow-sm placeholder-gray-300"
-               placeholder="Tgl / Bln / Thn (Contoh: 07/09/2003)"
+               placeholder="Contoh: 07/09/2003"
                aria-label="Masukkan tanggal lahir format hari dua digit, bulan dua digit, tahun empat digit">
         
         <div class="absolute right-4 top-1/2 -translate-y-1/2 text-gray-300 group-focus-within:text-ars-navy transition-colors">
@@ -128,7 +136,7 @@
                 </div>
                 
                 <p class="mt-10 text-center text-xs text-ars-gray font-bold opacity-30 uppercase tracking-[0.2em]">
-                    ARS University  &copy; {{ date('Y') }}
+                    FTI ARS University  &copy; {{ date('Y') }}
                 </p>
             </div>
         </div>

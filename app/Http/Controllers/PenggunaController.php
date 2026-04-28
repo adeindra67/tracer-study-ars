@@ -24,20 +24,12 @@ class PenggunaController extends Controller
 
         $alumni_list = DB::table('alumni')->where('nama', 'LIKE', '%' . $nama . '%')->get();
 
-        // CEK STATUS EVALUASI: Apakah alumni ini sudah dinilai tahun ini?
+        // LOGIKA BARU: Lock HANYA untuk alumni Fresh Graduate (lulusan tahun berjalan)
         $tahunSekarang = Carbon::now()->year;
-        $tracerStudi = DB::table('tracer_studi')->where('tahun', $tahunSekarang)->first();
 
         foreach ($alumni_list as $alumni) {
-            if ($tracerStudi) {
-                $alumni->sudah_dinilai = DB::table('pengguna')
-                    ->join('pengguna_tracer', 'pengguna.pengguna_no', '=', 'pengguna_tracer.pengguna_no')
-                    ->where('pengguna.alumni_no', $alumni->alumni_no)
-                    ->where('pengguna_tracer.tracer_studi_no', $tracerStudi->tracer_studi_no)
-                    ->exists();
-            } else {
-                $alumni->sudah_dinilai = false;
-            }
+            // Jika tahun lulus >= tahun sekarang, maka kunci/disable tombolnya
+            $alumni->is_locked = ($alumni->lulus_tahun && $alumni->lulus_tahun >= $tahunSekarang);
         }
 
         return view('pengguna.hasil', compact('alumni_list', 'nama'));
@@ -51,21 +43,11 @@ class PenggunaController extends Controller
         $alumni = DB::table('alumni')->where('alumni_no', $alumni_no)->first();
         if (!$alumni) return redirect()->route('pengguna.index');
 
-        // KEAMANAN GANDA: Blokir akses URL langsung jika sudah dinilai
+        // KEAMANAN GANDA: Blokir akses URL langsung jika Fresh Graduate
         $tahunSekarang = Carbon::now()->year;
-        $tracerStudi = DB::table('tracer_studi')->where('tahun', $tahunSekarang)->first();
-        
-        if ($tracerStudi) {
-            $sudahDinilai = DB::table('pengguna')
-                ->join('pengguna_tracer', 'pengguna.pengguna_no', '=', 'pengguna_tracer.pengguna_no')
-                ->where('pengguna.alumni_no', $alumni_no)
-                ->where('pengguna_tracer.tracer_studi_no', $tracerStudi->tracer_studi_no)
-                ->exists();
-
-            if ($sudahDinilai) {
-                return redirect()->route('pengguna.hasil', ['nama' => $alumni->nama])
-                    ->with('error', 'Maaf, evaluasi untuk alumni ini sudah diisi sebelumnya.');
-            }
+        if ($alumni->lulus_tahun && $alumni->lulus_tahun >= $tahunSekarang) {
+            return redirect()->route('pengguna.hasil', ['nama' => $alumni->nama])
+                ->with('error', 'Maaf, alumni lulusan tahun ' . $alumni->lulus_tahun . ' belum dapat dievaluasi karena masih berstatus lulusan baru (Fresh Graduate).');
         }
 
         return view('pengguna.verifikasi', compact('alumni'));
@@ -124,6 +106,8 @@ class PenggunaController extends Controller
                 'no_hp' => $request->no_hp,
                 'email' => $request->email,
                 'perusahaan' => $request->perusahaan,
+                'alamat_perusahaan' => $request->alamat_perusahaan, // Sesuai revisi sebelumnya
+                'sektor_perusahaan' => $request->sektor_perusahaan, // Sesuai revisi sebelumnya
                 'tingkat' => $request->tingkat,
                 'jabatan' => $request->jabatan,
                 'created_at' => Carbon::now()
@@ -163,5 +147,7 @@ class PenggunaController extends Controller
         }
     }
 
-    public function selesai() { return view('pengguna.selesai'); }
+    public function selesai() { 
+        return view('pengguna.selesai'); 
+    }
 }

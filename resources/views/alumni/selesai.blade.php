@@ -3,82 +3,86 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Tracer Study Alumni Selesai</title>
+    <title>Kuesioner Selesai | Tracer Study ARS</title>
     <link rel="icon" type="image/x-icon" href="{{ asset('images/logo-ars-university.webp') }}">
-    @vite(['resources/css/app.css', 'resources/js/app.js'])
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: { extend: { colors: { 'ars-navy': '#0f172a', 'ars-yellow': '#facc15' } } }
+        }
+    </script>
 </head>
-<body class="bg-gray-50 font-sans antialiased min-h-screen flex flex-col">
+<body class="bg-gray-50 font-sans antialiased text-gray-800 flex items-center justify-center min-h-screen px-4">
 
-    <nav class="bg-ars-navy text-white shadow-lg">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex justify-between h-16 items-center">
-                <div class="flex items-center gap-3">
-                    <div class="bg-white p-1 rounded flex items-center justify-center h-8 w-8 sm:h-10 sm:w-10 overflow-hidden">
-                        <img src="{{ asset('images/logo-ars-university.webp') }}" alt="Logo ARS" class="w-full h-full object-contain">
-                    </div>
-                    <span class="font-bold tracking-widest uppercase text-ars-yellow">KUESIONER ALUMNI</span>
-                </div>
-            </div>
-        </div>
-    </nav>
+    <div class="max-w-lg w-full bg-white rounded-3xl shadow-xl border border-gray-100 overflow-hidden text-center p-8 sm:p-12 relative">
+        
+        <!-- Dekorasi Background Latar Belakang -->
+        <div class="absolute top-0 left-0 -mt-10 -ml-10 w-40 h-40 bg-green-50 rounded-full mix-blend-multiply opacity-50 blur-2xl"></div>
+        <div class="absolute bottom-0 right-0 -mb-10 -mr-10 w-40 h-40 bg-blue-50 rounded-full mix-blend-multiply opacity-50 blur-2xl"></div>
 
-    <main class="flex-grow flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8 relative">
-        <div class="absolute top-20 left-20 w-64 h-64 bg-blue-100 rounded-full mix-blend-multiply filter blur-3xl opacity-50 animate-blob"></div>
-        <div class="absolute top-20 right-20 w-64 h-64 bg-yellow-100 rounded-full mix-blend-multiply filter blur-3xl opacity-50 animate-blob animation-delay-2000"></div>
-
-        <div class="max-w-xl w-full bg-white rounded-3xl shadow-2xl p-10 text-center relative z-10 border-t-8 border-ars-navy">
-            
-            <div class="mx-auto flex items-center justify-center h-24 w-24 rounded-full bg-green-50 mb-6">
-                <svg class="h-14 w-14 text-green-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+        <div class="relative z-10">
+            <!-- Ikon Centang Sukses -->
+            <div class="w-24 h-24 bg-green-100 text-green-500 rounded-full flex items-center justify-center mx-auto mb-6 shadow-sm border-4 border-white">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-12 w-12" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" />
                 </svg>
             </div>
 
-            <h2 class="text-3xl font-extrabold text-ars-navy mb-4">Terima Kasih, {{ $alumni->nama }}!</h2>
+            <h1 class="text-2xl sm:text-3xl font-black text-gray-900 mb-2">Terima Kasih!</h1>
             
-        <div class="bg-blue-50 text-blue-800 p-4 rounded-xl mb-6 border border-blue-100">
-                <p class="text-sm md:text-base leading-relaxed">
-                    Anda telah menyelesaikan pengisian kuesioner Tracer Study ARS University. Data Anda telah terekam dengan aman di dalam sistem kami.
+            <!-- Logika Perubahan Pesan Berdasarkan Sesi -->
+            <p class="text-gray-500 mb-6 leading-relaxed">
+                Halo <strong class="text-ars-navy">{{ Auth::guard('alumni')->user()->nama ?? 'Alumni' }}</strong>, 
+                @if(session('sudah_mengisi'))
+                    Anda <strong class="text-blue-600">sudah pernah berpartisipasi</strong> dan mengisi kuesioner Tracer Study pada tahun ini.
+                @else
+                    data kuesioner Anda <strong class="text-green-600">telah berhasil disimpan</strong> di dalam sistem kami.
+                @endif
+            </p>
+
+            <div class="bg-blue-50 border border-blue-100 p-5 rounded-2xl mb-6 text-left">
+                <p class="text-sm text-blue-800 leading-relaxed font-medium text-center">
+                    Partisipasi Anda sangat berarti bagi pengembangan mutu akademik dan kurikulum di lingkungan Fakultas Teknologi Informasi, ARS University.
                 </p>
             </div>
 
-            <div class="bg-[#FFF8E1] border-l-4 border-ars-yellow p-5 rounded-r-xl mb-8 text-left shadow-sm">
-                <div class="flex items-start gap-4">
-                    <div class="flex-shrink-0 mt-0.5 bg-ars-yellow/20 p-2 rounded-lg">
-                        <svg class="h-6 w-6 text-amber-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5.882V19.24a1.76 1.76 0 01-3.417.592l-2.147-6.15M18 13a3 3 0 100-6M5.436 13.683A4.001 4.001 0 017 6h1.832c4.1 0 7.625-1.234 9.168-3v14c-1.543-1.766-5.067-3-9.168-3H7a3.988 3.988 0 01-1.564-.317z" />
-                        </svg>
-                    </div>
-                    <div>
-                        <h3 class="text-sm font-black text-amber-800 uppercase tracking-wider mb-1">Satu Langkah Lagi (Opsional)</h3>
-                        <p class="text-sm text-amber-800 leading-relaxed">
-                            Bagi Anda yang sudah bekerja, mohon kesediaannya untuk mengingatkan <strong>Atasan/HRD</strong> di tempat Anda bekerja agar turut mengisi <span class="font-bold underline decoration-ars-yellow decoration-2">Kuesioner Pengguna Lulusan</span> melalui portal utama Tracer Study ARS University.
-                        </p>
-                    </div>
+            <!-- Pesan Pengingat Khusus Untuk Alumni yang Bekerja -->
+            @php
+                $pekerjaanAlumni = Auth::guard('alumni')->user()->pekerjaan ?? '';
+                $isBekerja = str_contains(strtolower($pekerjaanAlumni), 'bekerja');
+            @endphp
+
+            @if($isBekerja)
+            <div class="bg-yellow-50 border border-yellow-200 p-5 rounded-2xl mb-8 text-left relative overflow-hidden shadow-sm">
+                <!-- Dekorasi Ikon Transparan -->
+                <div class="absolute -right-4 -top-4 opacity-10 text-yellow-600">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-24 w-24" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" /></svg>
                 </div>
+                
+                <h3 class="text-sm font-black text-yellow-800 mb-2 flex items-center gap-2 relative z-10">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-yellow-600" viewBox="0 0 20 20" fill="currentColor">
+                        <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clip-rule="evenodd" />
+                    </svg>
+                    Satu Langkah Lagi!
+                </h3>
+                <p class="text-xs text-yellow-700 leading-relaxed font-medium relative z-10">
+                    Sistem mendeteksi Anda saat ini berstatus bekerja. Mohon kesediaannya untuk menyampaikan kepada <strong>Atasan atau HRD</strong> di tempat Anda bekerja agar turut mengisi <a href="{{ route('pengguna.index') }}" class="underline font-bold text-yellow-900 hover:text-ars-navy transition-colors">Survei Pengguna Lulusan</a>.
+                </p>
             </div>
+            @endif
 
-            <p class="text-gray-500 text-sm mb-10">
-                Kontribusi Anda sangat berharga untuk mengevaluasi kurikulum dan meningkatkan kualitas lulusan kampus kita di masa depan. Sukses selalu untuk karir Anda!
-            </p>
-
+            <!-- Tombol Keluar -->
             <form method="POST" action="{{ route('alumni.logout') }}">
                 @csrf
-                <button type="submit" class="w-full sm:w-auto inline-flex justify-center items-center gap-2 px-8 py-4 border border-transparent text-sm font-bold rounded-xl text-white bg-ars-navy hover:bg-blue-900 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-ars-navy transition-all duration-300 shadow-lg hover:shadow-xl transform hover:-translate-y-1">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-ars-yellow" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <button type="submit" class="w-full bg-ars-navy text-white font-bold py-3.5 px-4 rounded-xl shadow-lg hover:bg-blue-900 transition-colors flex items-center justify-center gap-2">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" />
                     </svg>
-                    KELUAR DARI SISTEM
+                    Keluar dari Sistem
                 </button>
             </form>
         </div>
-    </main>
-
-    <footer class="bg-white border-t border-gray-200 py-6 text-center">
-        <p class="text-xs text-gray-400 font-bold tracking-widest uppercase">
-            &copy; {{ date('Y') }} ARS University. All Rights Reserved.
-        </p>
-    </footer>
+    </div>
 
 </body>
 </html>

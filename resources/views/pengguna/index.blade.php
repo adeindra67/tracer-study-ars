@@ -1,5 +1,5 @@
 <x-guest-layout>
-    <div class="min-h-screen flex flex-col md:flex-row shadow-2xl overflow-hidden rounded-2xl mx-auto max-w-6xl my-0 md:my-10 border border-gray-100">
+    <div class="flex flex-col md:flex-row shadow-2xl overflow-hidden rounded-2xl mx-auto max-w-6xl border border-gray-100">
         
         <!-- Left Side (Branding Premium) -->
         <div class="w-full md:w-1/2 bg-ars-navy p-10 md:p-16 flex flex-col justify-center text-white relative">
@@ -46,7 +46,7 @@
                     
                     <div class="mb-6">
                         <label for="nama" class="block text-xs font-black text-ars-navy uppercase tracking-widest mb-2 ml-1">
-                            Nama Lengkap / Panggilan
+                            Nama Lengkap / Nama Depan
                         </label>
                         <div class="relative group">
                             <input type="text" 
@@ -78,6 +78,9 @@
                         Kembali ke Beranda
                     </a>
                 </div>
+                    <p class="mt-10 text-center text-xs text-ars-gray font-bold opacity-30 uppercase tracking-[0.2em]">
+                       FTI ARS University  &copy; {{ date('Y') }}
+                    </p>
             </div>
         </div>
     </div>

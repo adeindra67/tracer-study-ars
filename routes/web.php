@@ -30,6 +30,7 @@ Route::post('/logout-alumni', [AlumniAuthController::class, 'logout'])->name('al
 Route::middleware('auth:alumni')->prefix('alumni')->group(function () {
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('alumni.dashboard');
     Route::post('/dashboard', [DashboardController::class, 'store'])->name('alumni.dashboard.store');
+    Route::get('/selesai', [DashboardController::class, 'selesai'])->name('alumni.selesai');
 });
 
 // ==========================================
@@ -47,7 +48,6 @@ Route::prefix('pengguna')->name('pengguna.')->group(function () {
     // Tahap 4: Halaman Kuesioner (Sesi Utama)
     Route::get('/dashboard', [PenggunaController::class, 'dashboard'])->name('dashboard');
     Route::post('/store', [PenggunaController::class, 'store'])->name('store');
-    
     Route::get('/selesai', [PenggunaController::class, 'selesai'])->name('selesai');
 });
 

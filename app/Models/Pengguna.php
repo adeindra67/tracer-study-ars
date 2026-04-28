@@ -13,8 +13,8 @@ class Pengguna extends Model
     protected $primaryKey = 'pengguna_no';
 
     protected $fillable = [
-        'alumni_no', 'nama', 'no_hp', 'email', 'perusahaan', 'tingkat', 'jabatan'
-    ];
+            'alumni_no', 'nama', 'no_hp', 'email', 'perusahaan', 'alamat_perusahaan', 'sektor_perusahaan', 'tingkat', 'jabatan'
+        ];
 
     // Relasi: HRD ini menilai Alumni siapa?
     public function alumni()

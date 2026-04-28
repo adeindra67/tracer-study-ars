@@ -46,6 +46,8 @@ return new class extends Migration
             $table->string('no_hp')->nullable();
             $table->string('email')->nullable();
             $table->string('perusahaan');
+            $table->text('alamat_perusahaan')->nullable();
+            $table->string('sektor_perusahaan')->nullable();
             $table->string('tingkat')->nullable();
             $table->string('jabatan'); // Jabatan HRD/Penilai
             $table->timestamps();
